@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import "../css/LandingPage.css";
 import JoinServer from "./JoinServer";
+import CreateServer from "./CreateServer";
 
 const LandingPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const joinServer = () => {
-    setIsModalOpen(true);
+    setIsJoinModalOpen(true);
   };
 
   const createServer = () => {
-    console.log("Create a server");
+    setIsCreateModalOpen(true);
   };
 
   return (
@@ -22,7 +24,9 @@ const LandingPage = () => {
       </button>
       <button onClick={createServer}>Create a Server</button>
 
-      {isModalOpen && createPortal(<JoinServer onClose={() => setIsModalOpen(false)} />, document.body)}
+      {isJoinModalOpen && createPortal(<JoinServer onClose={() => setIsJoinModalOpen(false)} />, document.body)}
+
+      {isCreateModalOpen && createPortal(<CreateServer onClose={() => setIsCreateModalOpen(false)} />, document.body)}
     </div>
   );
 };
