@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
-import "../css/LandingPage.css";
+import styles from "../css/LandingPage.module.css";
 import JoinServer from "./JoinServer";
 import CreateServer from "./CreateServer";
 
@@ -18,8 +18,8 @@ const LandingPage = () => {
 
   return (
     <div>
-      <h1>Welcome to Kombio</h1>
-      <button className="button-padding" onClick={joinServer}>
+      <h1>Play Kombio online for free!</h1>
+      <button className={styles.buttonPadding} onClick={joinServer}>
         Join a Server
       </button>
       <button onClick={createServer}>Create a Server</button>

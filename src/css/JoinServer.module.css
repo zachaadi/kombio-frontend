@@ -11,32 +11,15 @@
   z-index: 1000;
 }
 
-.modal-content {
-  /* background: white; */
+.modalContent {
   padding: 20px;
   border-radius: 8px;
   width: 300px;
   text-align: center;
 }
 
-.modal-actions {
+.modalActions {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
-}
-
-.modal-actions button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-actions button:first-child {
-  background-color: #007bff;
-  /* color: white; */
-}
-
-.modal-actions button:last-child {
-  /* background-color: #ccc; */
 }
