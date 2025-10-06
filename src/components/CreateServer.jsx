@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import styles from "../css/CreateServer.module.css";
+import { socket } from "../socket";
+import LobbyRoom from "./LobbyRoom";
+import { useNavigate } from "react-router-dom";
 
 const CreateServer = ({ onClose }) => {
   const [serverId, setServerId] = useState("");
   const [playerName, setPlayerName] = useState("");
+  const navigate = useNavigate();
 
   const handleCreate = () => {
-    console.log("Creating server with ID: ", serverId, "and player name: ", playerName);
+    socket.emit("createRoom", serverId);
     onClose();
+    navigate(`/lobby-room/${serverId}`);
   };
 
   return (
