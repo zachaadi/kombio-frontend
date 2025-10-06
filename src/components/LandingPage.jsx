@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "../css/LandingPage.module.css";
-import JoinServer from "./JoinRoom";
-import CreateServer from "./CreateRoom";
+import JoinRoom from "./JoinRoom";
+import CreateRoom from "./CreateRoom";
 
 const LandingPage = () => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
@@ -24,9 +24,9 @@ const LandingPage = () => {
       </button>
       <button onClick={createRoom}>Create a Room</button>
 
-      {isJoinModalOpen && createPortal(<JoinServer onClose={() => setIsJoinModalOpen(false)} />, document.body)}
+      {isJoinModalOpen && createPortal(<JoinRoom onClose={() => setIsJoinModalOpen(false)} />, document.body)}
 
-      {isCreateModalOpen && createPortal(<CreateServer onClose={() => setIsCreateModalOpen(false)} />, document.body)}
+      {isCreateModalOpen && createPortal(<CreateRoom onClose={() => setIsCreateModalOpen(false)} />, document.body)}
     </div>
   );
 };
