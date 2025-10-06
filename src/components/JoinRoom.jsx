@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "../css/JoinServer.module.css";
 
-const JoinServer = ({ onClose }) => {
-  const [serverId, setServerId] = useState("");
+const JoinRoom = ({ onClose }) => {
+  const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");
 
   const handleJoin = () => {
-    console.log("Joining server with ID:", serverId, "and player name:", playerName);
+    console.log("Joining room with ID:", roomId, "and player name:", playerName);
     onClose();
   };
 
@@ -14,12 +14,12 @@ const JoinServer = ({ onClose }) => {
     <div>
       <div className={styles.modal}>
         <div className={styles.modalContent}>
-          <h2>Set Server Name</h2>
+          <h2>Set Room Name</h2>
           <input
             type="text"
-            value={serverId}
-            onChange={(e) => setServerId(e.target.value)}
-            placeholder="Enter Server ID"
+            value={roomId}
+            onChange={(e) => setRoomId(e.target.value)}
+            placeholder="Enter Room ID"
           />
           <h2>Set Player Name</h2>
           <input
@@ -29,7 +29,7 @@ const JoinServer = ({ onClose }) => {
             placeholder="Enter Player Name"
           />
           <div className={styles.modalActions}>
-            <button onClick={handleJoin}>Join Server</button>
+            <button onClick={handleJoin}>Join Room</button>
             <button onClick={onClose}>Cancel</button>
           </div>
         </div>
@@ -38,4 +38,4 @@ const JoinServer = ({ onClose }) => {
   );
 };
 
-export default JoinServer;
+export default JoinRoom;

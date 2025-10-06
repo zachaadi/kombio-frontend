@@ -1,30 +1,29 @@
 import React, { useState } from "react";
 import styles from "../css/CreateServer.module.css";
 import { socket } from "../socket";
-import LobbyRoom from "./LobbyRoom";
 import { useNavigate } from "react-router-dom";
 
-const CreateServer = ({ onClose }) => {
-  const [serverId, setServerId] = useState("");
+const CreateRoom = ({ onClose }) => {
+  const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");
   const navigate = useNavigate();
 
   const handleCreate = () => {
-    socket.emit("createRoom", serverId);
+    socket.emit("createRoom", roomId);
     onClose();
-    navigate(`/lobby-room/${serverId}`);
+    navigate(`/lobby-room/${roomId}`);
   };
 
   return (
     <div>
       <div className={styles.modal}>
         <div className={styles.modalContent}>
-          <h2>Set Server Name</h2>
+          <h2>Set Room Name</h2>
           <input
             type="text"
-            value={serverId}
-            onChange={(e) => setServerId(e.target.value)}
-            placeholder="Enter Server ID"
+            value={roomId}
+            onChange={(e) => setRoomId(e.target.value)}
+            placeholder="Enter Room ID"
           />
           <h2>Set Player Name</h2>
           <input
@@ -34,7 +33,7 @@ const CreateServer = ({ onClose }) => {
             placeholder="Enter Player Name"
           />
           <div className={styles.modalActions}>
-            <button onClick={handleCreate}>Create Server</button>
+            <button onClick={handleCreate}>Create Room</button>
             <button onClick={onClose}>Cancel</button>
           </div>
         </div>
@@ -43,4 +42,4 @@ const CreateServer = ({ onClose }) => {
   );
 };
 
-export default CreateServer;
+export default CreateRoom;
