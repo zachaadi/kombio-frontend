@@ -1,5 +1,5 @@
 import "./css/App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import LandingPage from "./components/LandingPage";
 import { socket } from "./socket";
@@ -7,9 +7,14 @@ import LobbyRoom from "./components/LobbyRoom";
 import { useNavigate } from "react-router-dom";
 import RulesPage from "./components/RulesPage";
 import StatsPage from "./components/StatsPage";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from '@mui/material/Alert';
 
 function App() {
   const navigate = useNavigate();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
 
   useEffect(() => {
     socket.connect();
@@ -29,7 +34,8 @@ function App() {
     });
 
     socket.on("error", (errorMessage) => {
-      console.error("Socket error: ", errorMessage);
+      setOpenSnackbar(true);
+      setSnackMessage(errorMessage);
     });
 
     return () => {
@@ -40,12 +46,21 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route index element={<LandingPage />} />
-      <Route path="/lobby-room/:roomId" element={<LobbyRoom />} />
-      <Route path="/rules" element={<RulesPage />} />
-      <Route path="/stats" element={<StatsPage />} />
-    </Routes>
+    <div>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={5000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert onClose={() => setOpenSnackbar(false)} severity="error" variant="filled" sx={{ width: "100%" }}>{snackMessage}</Alert>
+      </Snackbar>
+      <Routes>
+        <Route index element={<LandingPage />} />
+        <Route path="/lobby-room/:roomId" element={<LobbyRoom />} />
+        <Route path="/rules" element={<RulesPage />} />
+        <Route path="/stats" element={<StatsPage />} />
+      </Routes>
+    </div>
   );
 }
 
