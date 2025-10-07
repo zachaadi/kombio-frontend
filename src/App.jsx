@@ -5,6 +5,8 @@ import LandingPage from "./components/LandingPage";
 import { socket } from "./socket";
 import LobbyRoom from "./components/LobbyRoom";
 import { useNavigate } from "react-router-dom";
+import RulesPage from "./components/RulesPage";
+import StatsPage from "./components/StatsPage";
 
 function App() {
   const navigate = useNavigate();
@@ -41,6 +43,8 @@ function App() {
     <Routes>
       <Route index element={<LandingPage />} />
       <Route path="/lobby-room/:roomId" element={<LobbyRoom />} />
+      <Route path="/rules" element={<RulesPage />} />
+      <Route path="/stats" element={<StatsPage />} />
     </Routes>
   );
 }
