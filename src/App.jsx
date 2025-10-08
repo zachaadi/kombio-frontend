@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import RulesPage from "./components/RulesPage";
 import StatsPage from "./components/StatsPage";
 import Snackbar from "@mui/material/Snackbar";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +38,11 @@ function App() {
       setSnackMessage(errorMessage);
     });
 
+    socket.on("connect_error", () => {
+      setOpenSnackbar(true);
+      setSnackMessage("Cannot connect to server");
+    });
+
     return () => {
       socket.disconnect();
       socket.off("connect");
@@ -47,12 +52,10 @@ function App() {
 
   return (
     <div>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={5000}
-        onClose={() => setOpenSnackbar(false)}
-      >
-        <Alert onClose={() => setOpenSnackbar(false)} severity="error" variant="filled" sx={{ width: "100%" }}>{snackMessage}</Alert>
+      <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={() => setOpenSnackbar(false)}>
+        <Alert onClose={() => setOpenSnackbar(false)} severity="error" variant="filled" sx={{ width: "100%" }}>
+          {snackMessage}
+        </Alert>
       </Snackbar>
       <Routes>
         <Route index element={<LandingPage />} />
