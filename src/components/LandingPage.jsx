@@ -1,32 +1,32 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "../css/LandingPage.module.css";
-import JoinServer from "./JoinServer";
-import CreateServer from "./CreateServer";
+import JoinRoom from "./JoinRoom";
+import CreateRoom from "./CreateRoom";
 
 const LandingPage = () => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
-  const joinServer = () => {
+  const joinRoom = () => {
     setIsJoinModalOpen(true);
   };
 
-  const createServer = () => {
+  const createRoom = () => {
     setIsCreateModalOpen(true);
   };
 
   return (
     <div>
       <h1>Play Kombio online for free!</h1>
-      <button className={styles.buttonPadding} onClick={joinServer}>
-        Join a Server
+      <button className={styles.buttonPadding} onClick={joinRoom}>
+        Join a Room
       </button>
-      <button onClick={createServer}>Create a Server</button>
+      <button onClick={createRoom}>Create a Room</button>
 
-      {isJoinModalOpen && createPortal(<JoinServer onClose={() => setIsJoinModalOpen(false)} />, document.body)}
+      {isJoinModalOpen && createPortal(<JoinRoom onClose={() => setIsJoinModalOpen(false)} />, document.body)}
 
-      {isCreateModalOpen && createPortal(<CreateServer onClose={() => setIsCreateModalOpen(false)} />, document.body)}
+      {isCreateModalOpen && createPortal(<CreateRoom onClose={() => setIsCreateModalOpen(false)} />, document.body)}
     </div>
   );
 };
