@@ -1,3 +1,8 @@
 .buttonPadding {
     margin-right: 3em;
 }
+
+.playingCards {
+    width: 100%;
+    height: auto;
+}
