@@ -1,45 +1,51 @@
 import React, { useState } from "react";
 import styles from "../css/JoinServer.module.css";
 import { socket } from "../socket";
+import { Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 
-const JoinRoom = ({ onClose }) => {
+const JoinRoom = ({ open, onClose }) => {
   const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");
 
-  const handleJoin = () => {
-    socket.emit("joinRoom", roomId);
+  const handleJoin = (e) => {
+    e.preventDefault();
+    socket.emit("joinRoom", roomId, playerName);
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setRoomId("");
+    setPlayerName("");
     onClose();
   };
 
   return (
-    <div>
-      <div className={styles.modal}>
-        <div className={styles.modalContent}>
-          <form onSubmit={handleJoin}>
-            <h2>Set Room Name</h2>
-            <input
-              type="text"
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle className={styles.dialogTitle}>Join a room</DialogTitle>
+      <DialogContent className={styles.dialogContent}>
+        <form onSubmit={handleJoin}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <TextField
               required
-              value={roomId}
-              onChange={(e) => setRoomId(e.target.value)}
-              placeholder="Enter Room ID"
-            />
-            <h2>Set Player Name</h2>
-            <input
-              type="text"
-              required
-              value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
-              placeholder="Enter Player Name"
-            />
-            <div className={styles.modalActions}>
-              <button type="submit">Join Room</button>
-              <button onClick={onClose}>Cancel</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+              value={playerName}
+              placeholder="Enter Name"
+            ></TextField>
+            <TextField
+              required
+              onChange={(e) => setRoomId(e.target.value)}
+              value={roomId}
+              placeholder="Enter Room ID"
+            ></TextField>
+          </Box>
+
+          <DialogActions>
+            <Button type="submit">Join Room</Button>
+            <Button onClick={handleClose}>Cancel</Button>
+          </DialogActions>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 };
 

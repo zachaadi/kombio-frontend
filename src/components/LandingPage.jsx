@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { createPortal } from "react-dom";
 import styles from "../css/LandingPage.module.css";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
@@ -39,9 +38,8 @@ const LandingPage = () => {
         </Grid>
       </Grid>
 
-      {isJoinModalOpen && createPortal(<JoinRoom onClose={() => setIsJoinModalOpen(false)} />, document.body)}
-
-      {isCreateModalOpen && createPortal(<CreateRoom onClose={() => setIsCreateModalOpen(false)} />, document.body)}
+      <JoinRoom open={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}></JoinRoom>
+      <CreateRoom open={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}></CreateRoom>
     </Container>
   );
 };
