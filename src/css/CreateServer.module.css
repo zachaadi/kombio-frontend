@@ -38,3 +38,8 @@
 .dialogTitle {
   text-align: center;
 }
+
+.dialogActions {
+  display: flex !important;
+  justify-content: center !important;
+}

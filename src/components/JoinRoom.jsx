@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styles from "../css/JoinServer.module.css";
 import { socket } from "../socket";
-import { Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+import { Slide, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+
+const Transition = React.forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
 
 const JoinRoom = ({ open, onClose }) => {
   const [roomId, setRoomId] = useState("");
@@ -20,7 +22,13 @@ const JoinRoom = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog
+      slots={{
+        transition: Transition,
+      }}
+      open={open}
+      onClose={handleClose}
+    >
       <DialogTitle className={styles.dialogTitle}>Join a room</DialogTitle>
       <DialogContent className={styles.dialogContent}>
         <form onSubmit={handleJoin}>
@@ -39,7 +47,7 @@ const JoinRoom = ({ open, onClose }) => {
             ></TextField>
           </Box>
 
-          <DialogActions>
+          <DialogActions className={styles.dialogActions}>
             <Button type="submit">Join Room</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </DialogActions>
