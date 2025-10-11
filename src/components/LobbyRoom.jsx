@@ -11,13 +11,26 @@ const LobbyRoom = () => {
   const { roomId: roomId } = useParams();
   const [players, setPlayers] = useState([]);
 
-  socket.emit("getPlayers", roomId);
-
   useEffect(() => {
-    socket.on("playersList", (players) => {
+    socket.emit("getPlayers", roomId);
+
+    const handlePlayers = (players) => {
       setPlayers(players);
+    };
+
+    socket.on("playersList", (players) => {
+      handlePlayers(players);
     });
-  }, []);
+
+    socket.on("playerLeft", () => {
+      socket.emit("getPlayers", roomId);
+    });
+
+    return () => {
+      socket.off("playersList", handlePlayers);
+      socket.off("playerLeft");
+    };
+  }, [roomId]);
 
   return (
     <Container
