@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import styles from "../css/LobbyRoom.module.css";
 import { socket } from "../socket";
 import { Container, Box, Grid } from "@mui/material";
+import GameSetup from "./GameSetup";
+import PlayerBox from "./PlayerBox";
+import ChatBox from "./ChatBox";
 
 const LobbyRoom = () => {
   const { roomId: roomId } = useParams();
@@ -17,23 +20,17 @@ const LobbyRoom = () => {
   }, []);
 
   return (
-    <Container>
+    <Container
+      maxWidth={false}
+      sx={{
+        border: "1px solid red",
+        minHeight: "calc(100vh - 64px)",
+      }}
+    >
       <Grid container spacing={10}>
-        <Grid item size={3} className={styles.playerListBox}>
-          <h4>Players in lobby</h4>
-          <ul>
-            {players.map((player, index) => (
-              <li key={index}>{player}</li>
-            ))}
-          </ul>
-        </Grid>
-        <Grid item size={6} className={styles.gameConfigureBox}>
-          <h2>Lobby Name: {roomId}</h2>
-          <p>Welcome to the lobby! Waiting for players to join...</p>
-        </Grid>
-        <Grid item size={3} className={styles.chatBox}>
-          <h4>Chat box</h4>
-        </Grid>
+        <PlayerBox players={players} />
+        <GameSetup roomId={roomId} />
+        <ChatBox />
       </Grid>
     </Container>
   );
