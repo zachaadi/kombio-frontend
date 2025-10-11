@@ -12,6 +12,8 @@ const JoinRoom = ({ open, onClose }) => {
   const handleJoin = (e) => {
     e.preventDefault();
     socket.emit("joinRoom", roomId, playerName);
+    sessionStorage.setItem("playerName", playerName);
+    sessionStorage.setItem("roomId", roomId);
     handleClose();
   };
 

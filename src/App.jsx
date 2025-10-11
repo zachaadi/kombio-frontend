@@ -20,6 +20,11 @@ function App() {
     socket.connect();
 
     socket.on("connect", () => {
+      const playerName = sessionStorage.getItem("playerName");
+      const roomId = sessionStorage.getItem("roomId");
+      if (playerName && roomId) {
+        socket.emit("joinRoom", roomId, playerName);
+      }
       console.log("socket connected: ", socket.id);
     });
 
@@ -44,9 +49,11 @@ function App() {
     });
 
     return () => {
-      socket.disconnect();
       socket.off("connect");
       socket.off("roomCreated");
+      socket.off("roomJoined");
+      socket.off("error");
+      socket.off("connect_error");
     };
   }, []);
 
