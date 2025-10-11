@@ -10,13 +10,17 @@ import styles from "../css/Header.module.css";
 import Grid from "@mui/material/Grid";
 
 export default function Header() {
+  const clearSessionStorage = () => {
+    sessionStorage.clear();
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
           <Grid container spacing={2}>
             <Grid item>
-              <Link to="/">
+              <Link to="/" onClick={clearSessionStorage}>
                 <img src={logo} alt="Logo" className={styles.logo} />
               </Link>
             </Grid>
