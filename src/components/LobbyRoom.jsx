@@ -27,7 +27,7 @@ const LobbyRoom = () => {
     });
 
     return () => {
-      socket.off("playersList", handlePlayers);
+      socket.off("playersList");
       socket.off("playerLeft");
     };
   }, [roomId]);

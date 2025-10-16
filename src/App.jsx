@@ -25,7 +25,6 @@ function App() {
       if (playerName && roomId) {
         socket.emit("joinRoom", roomId, playerName);
       }
-      console.log("socket connected: ", socket.id);
     });
 
     socket.on("roomCreated", (roomId) => {
@@ -34,7 +33,6 @@ function App() {
     });
 
     socket.on("roomJoined", (roomId) => {
-      console.log("Joined room with ID: ", roomId);
       navigate(`/lobby-room/${roomId}`);
     });
 
