@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import styles from "../css/LandingPage.module.css";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
-import { Container, Box, Grid } from "@mui/material";
+import { Button, Container, Box, Grid, useTheme, useMediaQuery } from "@mui/material";
 import deck from "/deck.svg";
 
 const LandingPage = () => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const joinRoom = () => {
     setIsJoinModalOpen(true);
@@ -19,22 +21,49 @@ const LandingPage = () => {
 
   return (
     <Container>
-      <Grid container spacing={10}>
-        <Grid item size={6} alignItems="center" justifyContent="center">
-          <img src={deck} className={styles.playingCards} alt="Playing Cards" />
-        </Grid>
-        <Grid
-          item
-          size={6}
-          sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}
-        >
+      <Grid container direction={{ xs: "column", md: "row" }}>
+        <Grid item>
           <Box>
-            <h1>Play Kombio online for free!</h1>
-            <button className={styles.buttonPadding} onClick={joinRoom}>
-              Join a Room
-            </button>
-            <button onClick={createRoom}>Create a Room</button>
+            <img src={deck} className={styles.playingCards} alt="Playing Cards" />
           </Box>
+        </Grid>
+
+        <Grid item>
+          <h1>Play Kombio online for free!</h1>
+          <Grid spacing={2} container direction={{ xs: "column", md: "row" }} justifyContent="center" alignItems="center">
+            <Grid item>
+              <Button
+                sx={{
+                  borderRadius: "8px",
+                  border: "1px solid transparent",
+                  fontSize: "1em",
+                  fontWeight: 500,
+                  backgroundColor: "#1a1a1a",
+                  textTransform: "none",
+                }}
+                variant="contained"
+                onClick={joinRoom}
+              >
+                Join a Room
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                sx={{
+                  borderRadius: "8px",
+                  border: "1px solid transparent",
+                  fontSize: "1em",
+                  fontWeight: 500,
+                  backgroundColor: "#1a1a1a",
+                  textTransform: "none",
+                }}
+                variant="contained"
+                onClick={createRoom}
+              >
+                Create a Room
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
 

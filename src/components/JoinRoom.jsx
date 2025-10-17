@@ -50,8 +50,34 @@ const JoinRoom = ({ open, onClose }) => {
           </Box>
 
           <DialogActions className={styles.dialogActions}>
-            <Button type="submit">Join Room</Button>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              sx={{
+                borderRadius: "8px",
+                border: "1px solid transparent",
+                fontSize: "1em",
+                fontWeight: 500,
+                backgroundColor: "#1a1a1a",
+                textTransform: "none",
+              }}
+              variant="contained"
+              type="submit"
+            >
+              Join Room
+            </Button>
+            <Button
+              sx={{
+                borderRadius: "8px",
+                border: "1px solid transparent",
+                fontSize: "1em",
+                fontWeight: 500,
+                backgroundColor: "#1a1a1a",
+                textTransform: "none",
+              }}
+              variant="contained"
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
           </DialogActions>
         </form>
       </DialogContent>
