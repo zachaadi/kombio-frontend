@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "../css/LandingPage.module.css";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
-import { Button, Container, Box, Grid } from "@mui/material";
+import { Button, Container, Box, Grid, Typography } from "@mui/material";
 import deck from "/deck.svg";
 
 const LandingPage = () => {
@@ -42,13 +42,16 @@ const LandingPage = () => {
           size={{ xs: 12, md: 6 }}
           sx={{ justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column" }}
         >
-          <h1>Play Kombio online for free!</h1>
+          <Typography variant="h3" sx={{ fontWeight: 700, fontSize: { xs: "2em", sm: "3em", md: "4em" } }}>
+            Play Kombio online for free!
+          </Typography>
           <Grid
             spacing={2}
             container
             direction={{ xs: "column", md: "row" }}
             justifyContent="center"
             alignItems="center"
+            sx={{ marginTop: "1em" }}
           >
             <Grid item>
               <Button
