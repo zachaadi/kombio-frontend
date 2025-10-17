@@ -28,7 +28,7 @@ const LandingPage = () => {
               sx={{
                 display: "block",
                 width: "100%",
-                maxWidth: { xs: "30vw", sm: "20vw", md: "30vw", lg: "40vw" },
+                maxWidth: { xs: "20vw", sm: "20vw", md: "30vw", lg: "40vw" },
                 height: "auto",
                 objectFit: "contain",
                 mx: "auto",
