@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import styles from "../css/LandingPage.module.css";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
-import { Button, Container, Box, Grid, useTheme, useMediaQuery } from "@mui/material";
+import { Button, Container, Box, Grid } from "@mui/material";
 import deck from "/deck.svg";
 
 const LandingPage = () => {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  // const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const joinRoom = () => {
     setIsJoinModalOpen(true);
@@ -21,16 +19,37 @@ const LandingPage = () => {
 
   return (
     <Container>
-      <Grid container direction={{ xs: "column", md: "row" }}>
-        <Grid item>
+      <Grid spacing={{ xs: 2, md: 10 }} container direction={{ xs: "column", md: "row" }}>
+        <Grid item size={{ xs: 12, md: 6 }}>
           <Box>
-            <img src={deck} className={styles.playingCards} alt="Playing Cards" />
+            <Box
+              component={"img"}
+              src={deck}
+              sx={{
+                display: "block",
+                width: "100%",
+                maxWidth: { xs: "30vw", sm: "20vw", md: "30vw", lg: "40vw" },
+                height: "auto",
+                objectFit: "contain",
+                mx: "auto",
+              }}
+            ></Box>
           </Box>
         </Grid>
 
-        <Grid item>
+        <Grid
+          item
+          size={{ xs: 12, md: 6 }}
+          sx={{ justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column" }}
+        >
           <h1>Play Kombio online for free!</h1>
-          <Grid spacing={2} container direction={{ xs: "column", md: "row" }} justifyContent="center" alignItems="center">
+          <Grid
+            spacing={2}
+            container
+            direction={{ xs: "column", md: "row" }}
+            justifyContent="center"
+            alignItems="center"
+          >
             <Grid item>
               <Button
                 sx={{
