@@ -5,7 +5,7 @@ import { Paper, Box } from "@mui/material";
 
 const PlayerBox = ({ players }) => {
   return (
-    <Box sx={{ padding: "5em" }}>
+    <Box>
       <h4>Players in lobby</h4>
       <ul>
         {players.map((player, index) => (

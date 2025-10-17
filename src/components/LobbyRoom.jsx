@@ -34,27 +34,25 @@ const LobbyRoom = () => {
 
   return (
     <Container
-      maxWidth={false}
       sx={{
         minHeight: "calc(100vh - 64px)",
+        minWidth: "100vw",
       }}
     >
-      <Grid container spacing={2} sx={{ height: "calc(100vh - 64px - 16px)" }}>
+      <Grid container spacing={1} sx={{ height: "calc(100vh - 64px - 16px)" }}>
         <Grid
           item
-          xs={12}
-          md={4}
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
+          size={{ xs: 12, md: 4 }}
         >
           <Paper
             sx={{
               height: "80%",
-              overflow: "hidden",
-              marginRight: "10em",
+              width: "80%",
             }}
           >
             <PlayerBox players={players} />
@@ -63,18 +61,17 @@ const LobbyRoom = () => {
 
         <Grid
           item
-          xs={12}
-          md={4}
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
+          size={{ xs: 12, md: 4 }}
         >
           <Paper
             sx={{
               height: "80%",
-              overflow: "hidden",
+              width: { xs: "80%", md: "100%" },
             }}
           >
             <GameSetup roomId={roomId} />
@@ -82,19 +79,17 @@ const LobbyRoom = () => {
         </Grid>
         <Grid
           item
-          xs={12}
-          md={4}
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
+          size={{ xs: 12, md: 4 }}
         >
           <Paper
             sx={{
               height: "80%",
-              overflow: "hidden",
-              marginLeft: "10em",
+              width: "80%",
             }}
           >
             <ChatBox />

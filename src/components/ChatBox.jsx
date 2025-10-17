@@ -4,7 +4,7 @@ import styles from "../css/ChatBox.module.css";
 
 const ChatBox = () => {
   return (
-    <Box sx={{ padding: "5em" }}>
+    <Box>
       <h4>Chat box</h4>
     </Box>
   );
