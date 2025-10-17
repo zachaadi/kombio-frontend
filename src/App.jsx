@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div>
-      <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={() => setOpenSnackbar(false)}>
+      <Snackbar open={openSnackbar} autoHideDuration={4000} onClose={() => setOpenSnackbar(false)}>
         <Alert onClose={() => setOpenSnackbar(false)} severity={severity} variant="filled" sx={{ width: "100%" }}>
           {snackMessage}
         </Alert>
