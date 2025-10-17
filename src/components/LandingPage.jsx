@@ -62,6 +62,8 @@ const LandingPage = () => {
                   fontWeight: 500,
                   backgroundColor: "#1a1a1a",
                   textTransform: "none",
+                  paddingLeft: "1.5em",
+                  paddingRight: "1.5em",
                 }}
                 variant="contained"
                 onClick={joinRoom}
