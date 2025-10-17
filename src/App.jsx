@@ -1,10 +1,9 @@
 import "./css/App.css";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import { socket } from "./socket";
 import LobbyRoom from "./components/LobbyRoom";
-import { useNavigate } from "react-router-dom";
 import RulesPage from "./components/RulesPage";
 import StatsPage from "./components/StatsPage";
 import Snackbar from "@mui/material/Snackbar";
@@ -15,6 +14,7 @@ function App() {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
+  const [severity, setSeverity] = useState("");
 
   useEffect(() => {
     socket.connect();
@@ -36,14 +36,16 @@ function App() {
       navigate(`/lobby-room/${roomId}`);
     });
 
-    socket.on("error", (errorMessage) => {
-      setOpenSnackbar(true);
-      setSnackMessage(errorMessage);
-    });
-
     socket.on("connect_error", () => {
       setOpenSnackbar(true);
       setSnackMessage("Cannot connect to server");
+      setSeverity("error");
+    });
+
+    socket.on("sendSnackbar", (severity, message) => {
+      setOpenSnackbar(true);
+      setSnackMessage(message);
+      setSeverity(severity);
     });
 
     return () => {
@@ -53,12 +55,12 @@ function App() {
       socket.off("error");
       socket.off("connect_error");
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
       <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={() => setOpenSnackbar(false)}>
-        <Alert onClose={() => setOpenSnackbar(false)} severity="error" variant="filled" sx={{ width: "100%" }}>
+        <Alert onClose={() => setOpenSnackbar(false)} severity={severity} variant="filled" sx={{ width: "100%" }}>
           {snackMessage}
         </Alert>
       </Snackbar>
