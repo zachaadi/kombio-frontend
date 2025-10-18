@@ -6,7 +6,7 @@ import { socket } from "../socket";
 const GameSetup = ({ roomId }) => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
-    socket.emit("copyToClipboard");
+    socket.emit("sendSnackbar", "info", "Copied!");
   };
 
   useEffect(() => {}, []);

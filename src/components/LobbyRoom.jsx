@@ -22,7 +22,8 @@ const LobbyRoom = () => {
       handlePlayers(players);
     });
 
-    socket.on("playerLeft", () => {
+    socket.on("playerLeft", (playerName) => {
+      socket.emit("sendSnackbar", "info", `${playerName} left lobby!`);
       socket.emit("getPlayers", roomId);
     });
 
