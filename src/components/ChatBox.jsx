@@ -50,7 +50,7 @@ const ChatBox = () => {
         <Paper
           sx={{
             minWidth: { xs: "50vw", md: "20vw" },
-            height: { xs: "10vh", md: "50vh" },
+            height: { xs: "10vh", md: "60vh" },
             overflowY: "auto",
           }}
         >
