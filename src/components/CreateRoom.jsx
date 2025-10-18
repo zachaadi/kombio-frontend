@@ -11,9 +11,11 @@ const CreateRoom = ({ open, onClose }) => {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    socket.emit("createRoom", roomId, playerName);
-    sessionStorage.setItem("playerName", playerName);
-    sessionStorage.setItem("roomId", roomId);
+    setRoomId(roomId.trim());
+    setPlayerName(playerName.trim());
+    socket.emit("createRoom", roomId.trim(), playerName.trim());
+    sessionStorage.setItem("playerName", playerName.trim());
+    sessionStorage.setItem("roomId", roomId.trim());
     handleClose();
   };
 
