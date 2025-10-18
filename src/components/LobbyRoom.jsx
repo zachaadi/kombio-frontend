@@ -54,6 +54,7 @@ const LobbyRoom = () => {
             sx={{
               height: "80%",
               width: "80%",
+              overflowY: "auto",
             }}
           >
             <PlayerBox players={players} />
@@ -73,6 +74,7 @@ const LobbyRoom = () => {
             sx={{
               height: "80%",
               width: { xs: "80%", md: "100%" },
+              overflowY: "auto",
             }}
           >
             <GameSetup roomId={roomId} />
@@ -91,6 +93,7 @@ const LobbyRoom = () => {
             sx={{
               height: "80%",
               width: "80%",
+              overflowY: "auto",
             }}
           >
             <ChatBox />
