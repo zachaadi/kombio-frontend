@@ -1,5 +1,5 @@
 import "./css/App.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import { socket } from "./socket";
@@ -14,7 +14,7 @@ function App() {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
-  const [severity, setSeverity] = useState("");
+  const [severity, setSeverity] = useState<"error" | "info" | "success" | "warning">("info");
 
   useEffect(() => {
     socket.connect();
