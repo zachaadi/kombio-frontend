@@ -1,13 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography, Paper, TextField, Grid, Button, List, ListItem } from "@mui/material";
-import styles from "../css/ChatBox.module.css";
+import { useState, useEffect, useRef } from "react";
+import { Box, Typography, Paper, TextField, Button, List, ListItem } from "@mui/material";
+// import styles from "../css/ChatBox.module.css";
 import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../socket";
 
+interface ChatMessage {
+  playerName: string;
+  message: string;
+}
+
 const ChatBox = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -17,7 +22,7 @@ const ChatBox = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
       socket.emit("chatMessage", newMessage);

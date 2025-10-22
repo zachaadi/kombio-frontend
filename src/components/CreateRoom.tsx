@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import styles from "../css/CreateServer.module.css";
 import { socket } from "../socket";
 import { Slide, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+import { TransitionProps } from '@mui/material/transitions';
 
-const Transition = React.forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
-
-const CreateRoom = ({ open, onClose }) => {
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");
 
-  const handleCreate = (e) => {
+  const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
     setRoomId(roomId.trim());
     setPlayerName(playerName.trim());

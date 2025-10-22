@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Box, Typography, Paper, Button, Grid } from "@mui/material";
-import styles from "../css/GameSetup.module.css";
+// import styles from "../css/GameSetup.module.css";
 import { socket } from "../socket";
 
-const GameSetup = ({ roomId }) => {
+const GameSetup = ({ roomId }: { roomId: string }) => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
     socket.emit("sendSnackbar", "info", "Copied!");
@@ -19,15 +19,15 @@ const GameSetup = ({ roomId }) => {
 
       <Paper sx={{ backgroundColor: "grey", mt: "1em", width: "80%" }}>
         <Grid container sx={{ justifyContent: "center", alignItems: "center" }} spacing={2}>
-          <Grid item sx={{ pt: "1em" }}>
-            <Typography variant={"h7"}>Invite friends to lobby</Typography>
+          <Grid sx={{ pt: "1em" }}>
+            <Typography variant={"h6"}>Invite friends to lobby</Typography>
           </Grid>
-          <Grid item>
+          <Grid>
             <Typography sx={{ fontWeight: 700 }} variant={"h6"}>
               {window.location.href}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid>
             <Button sx={{ mb: "1em" }} variant="contained" onClick={copyToClipboard}>
               Copy
             </Button>
