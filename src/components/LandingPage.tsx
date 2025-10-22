@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "../css/LandingPage.module.css";
+import { useState } from "react";
+// import styles from "../css/LandingPage.module.css";
 import JoinRoom from "./JoinRoom";
 import CreateRoom from "./CreateRoom";
 import { Button, Container, Box, Grid, Typography } from "@mui/material";
@@ -20,7 +20,7 @@ const LandingPage = () => {
   return (
     <Container>
       <Grid spacing={{ xs: 2, md: 10 }} container direction={{ xs: "column", md: "row" }}>
-        <Grid item size={{ xs: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box>
             <Box
               component={"img"}
@@ -38,7 +38,6 @@ const LandingPage = () => {
         </Grid>
 
         <Grid
-          item
           size={{ xs: 12, md: 6 }}
           sx={{ justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column" }}
         >
@@ -53,7 +52,7 @@ const LandingPage = () => {
             alignItems="center"
             sx={{ marginTop: "1em" }}
           >
-            <Grid item>
+            <Grid>
               <Button
                 sx={{
                   borderRadius: "8px",
@@ -71,7 +70,7 @@ const LandingPage = () => {
                 Join a Room
               </Button>
             </Grid>
-            <Grid item>
+            <Grid>
               <Button
                 sx={{
                   borderRadius: "8px",

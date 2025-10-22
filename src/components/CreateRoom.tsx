@@ -12,6 +12,7 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");

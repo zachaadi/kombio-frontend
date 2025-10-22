@@ -1,9 +1,7 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import styles from "../css/PlayerBox.module.css";
-import { Paper, Box, Typography, List, ListItem } from "@mui/material";
+// import styles from "../css/PlayerBox.module.css";
+import { Box, Typography, List, ListItem } from "@mui/material";
 
-const PlayerBox = ({ players }) => {
+const PlayerBox = ({ players }: { players: string[] }) => {
   return (
     <Box>
       <Typography
@@ -15,7 +13,7 @@ const PlayerBox = ({ players }) => {
       >
         Players in lobby
       </Typography>
-      <List sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+      <List sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         {players.map((player, index) => (
           <ListItem sx={{ border: "1px black solid", borderRadius: "5px", mb: ".5em", width: "90%" }} key={index}>
             {player}

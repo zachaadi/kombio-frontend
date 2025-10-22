@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styles from "../css/LobbyRoom.module.css";
+// import styles from "../css/LobbyRoom.module.css";
 import { socket } from "../socket";
-import { Container, Box, Grid, Paper } from "@mui/material";
+import { Container, Grid, Paper } from "@mui/material";
 import GameSetup from "./GameSetup";
 import PlayerBox from "./PlayerBox";
 import ChatBox from "./ChatBox";
 
 const LobbyRoom = () => {
   const { roomId: roomId } = useParams();
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<string[]>([]);
 
   useEffect(() => {
     socket.emit("getPlayers", roomId);
 
-    const handlePlayers = (players) => {
+    const handlePlayers = (players: string[]) => {
       setPlayers(players);
     };
 
@@ -42,7 +42,6 @@ const LobbyRoom = () => {
     >
       <Grid container spacing={1} sx={{ height: "calc(100vh - 64px - 16px)" }}>
         <Grid
-          item
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -62,7 +61,6 @@ const LobbyRoom = () => {
         </Grid>
 
         <Grid
-          item
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -77,11 +75,10 @@ const LobbyRoom = () => {
               overflowY: "auto",
             }}
           >
-            <GameSetup roomId={roomId} />
+            <GameSetup roomId={roomId || ""} />
           </Paper>
         </Grid>
         <Grid
-          item
           sx={{
             display: "flex",
             justifyContent: "center",
