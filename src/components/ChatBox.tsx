@@ -31,8 +31,22 @@ const ChatBox = () => {
   };
 
   useEffect(() => {
-    socket.on("chatMessage", (playerName, message) => {
-      setMessages((prevMessages) => [...prevMessages, { playerName, message }]);
+    socket.on("chatMessage", (messageObj) => {
+      console.log(messageObj);
+      if (Array.isArray(messageObj)) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          ...messageObj.map((msg) => ({
+            playerName: msg.name,
+            message: msg.message,
+          })),
+        ]);
+      } else {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { playerName: messageObj.name, message: messageObj.message },
+        ]);
+      }
     });
 
     return () => {
