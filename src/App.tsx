@@ -23,7 +23,7 @@ function App() {
       const playerName = sessionStorage.getItem("playerName");
       const roomId = sessionStorage.getItem("roomId");
       if (playerName && roomId) {
-        socket.emit("joinRoom", roomId, playerName);
+        socket.emit("reJoinRoom", roomId, playerName);
       }
     });
 
