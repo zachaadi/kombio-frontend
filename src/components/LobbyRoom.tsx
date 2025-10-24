@@ -68,7 +68,7 @@ const LobbyRoom = () => {
               overflowY: "auto",
             }}
           >
-            <ChatBox />
+            <ChatBox roomId={roomId || ""} />
           </Paper>
         </Grid>
       </Grid>

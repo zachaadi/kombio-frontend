@@ -5,13 +5,14 @@ import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../socket";
 
 interface ChatMessage {
-  playerName: string;
+  name: string;
   message: string;
 }
 
-const ChatBox = () => {
+const ChatBox = ({ roomId }: { roomId: string }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -22,37 +23,35 @@ const ChatBox = () => {
     scrollToBottom();
   }, [messages]);
 
+  useEffect(() => {
+    socket.emit("getMessages", roomId);
+
+    const handleMessages = (incomingMessages: ChatMessage[]) => {
+      if (Array.isArray(incomingMessages)) {
+        setMessages(incomingMessages);
+      } else {
+        setMessages((prevMessages) => [...prevMessages, incomingMessages]);
+      }
+    };
+
+    socket.on("messageList", (incomingMessages) => {
+      handleMessages(incomingMessages);
+    });
+
+    console.log("womp", messages);
+
+    return () => {
+      socket.off("messageList");
+    };
+  }, [roomId]);
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
-      socket.emit("chatMessage", newMessage);
+      socket.emit("newMessage", newMessage);
       setNewMessage("");
     }
   };
-
-  useEffect(() => {
-    socket.on("chatMessage", (messageObj) => {
-      console.log(messageObj);
-      if (Array.isArray(messageObj)) {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          ...messageObj.map((msg) => ({
-            playerName: msg.name,
-            message: msg.message,
-          })),
-        ]);
-      } else {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { playerName: messageObj.name, message: messageObj.message },
-        ]);
-      }
-    });
-
-    return () => {
-      socket.off("chatMessage");
-    };
-  }, []);
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
@@ -76,7 +75,7 @@ const ChatBox = () => {
           <List>
             {messages.map((msg, index) => (
               <ListItem key={index}>
-                {msg.playerName}: {msg.message}
+                {msg.name}: {msg.message}
               </ListItem>
             ))}
           </List>
