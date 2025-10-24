@@ -9,8 +9,8 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
   useEffect(() => {
     socket.emit("getPlayers", roomId);
 
-    const handlePlayers = (playerss: string[]) => {
-      setPlayers(playerss);
+    const handlePlayers = (players: string[]) => {
+      setPlayers(players);
     };
 
     socket.on("playersList", (players) => {
