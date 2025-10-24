@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // import styles from "../css/LobbyRoom.module.css";
-import { socket } from "../socket";
 import { Container, Grid, Paper } from "@mui/material";
 import GameSetup from "./GameSetup";
 import PlayerBox from "./PlayerBox";
@@ -9,29 +7,6 @@ import ChatBox from "./ChatBox";
 
 const LobbyRoom = () => {
   const { roomId: roomId } = useParams();
-  const [players, setPlayers] = useState<string[]>([]);
-
-  useEffect(() => {
-    socket.emit("getPlayers", roomId);
-
-    const handlePlayers = (players: string[]) => {
-      setPlayers(players);
-    };
-
-    socket.on("playersList", (players) => {
-      handlePlayers(players);
-    });
-
-    socket.on("playerLeft", (playerName) => {
-      socket.emit("sendSnackbar", "info", `${playerName} left lobby!`);
-      socket.emit("getPlayers", roomId);
-    });
-
-    return () => {
-      socket.off("playersList");
-      socket.off("playerLeft");
-    };
-  }, [roomId]);
 
   return (
     <Container
@@ -56,7 +31,7 @@ const LobbyRoom = () => {
               overflowY: "auto",
             }}
           >
-            <PlayerBox players={players} />
+            <PlayerBox roomId={roomId || ""} />
           </Paper>
         </Grid>
 

@@ -1,7 +1,33 @@
 // import styles from "../css/PlayerBox.module.css";
 import { Box, Typography, List, ListItem } from "@mui/material";
+import { useEffect, useState } from "react";
+import { socket } from "../socket";
 
-const PlayerBox = ({ players }: { players: string[] }) => {
+const PlayerBox = ({ roomId }: { roomId: string }) => {
+  const [players, setPlayers] = useState<string[]>([]);
+
+  useEffect(() => {
+    socket.emit("getPlayers", roomId);
+
+    const handlePlayers = (playerss: string[]) => {
+      setPlayers(playerss);
+    };
+
+    socket.on("playersList", (players) => {
+      handlePlayers(players);
+    });
+
+    socket.on("playerLeft", (playerName) => {
+      socket.emit("sendSnackbar", "info", `${playerName} left lobby!`);
+      socket.emit("getPlayers", roomId);
+    });
+
+    return () => {
+      socket.off("playersList");
+      socket.off("playerLeft");
+    };
+  }, [roomId]);
+
   return (
     <Box>
       <Typography
