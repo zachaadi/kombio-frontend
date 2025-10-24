@@ -38,8 +38,6 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
       handleMessages(incomingMessages);
     });
 
-    console.log("womp", messages);
-
     return () => {
       socket.off("messageList");
     };
@@ -75,7 +73,7 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
           <List>
             {messages.map((msg, index) => (
               <ListItem key={index}>
-                {msg.name}: {msg.message}
+                <b>{msg.name}</b>: {msg.message}
               </ListItem>
             ))}
           </List>
