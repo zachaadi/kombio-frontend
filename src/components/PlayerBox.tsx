@@ -3,13 +3,19 @@ import { Box, Typography, List, ListItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
 
+interface Player {
+  name: string;
+  isReady: boolean;
+  role: string;
+}
+
 const PlayerBox = ({ roomId }: { roomId: string }) => {
-  const [players, setPlayers] = useState<string[]>([]);
+  const [players, setPlayers] = useState<Player[]>([]);
 
   useEffect(() => {
     socket.emit("getPlayers", roomId);
 
-    const handlePlayers = (players: string[]) => {
+    const handlePlayers = (players: Player[]) => {
       setPlayers(players);
     };
 
@@ -42,7 +48,7 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
       <List sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         {players.map((player, index) => (
           <ListItem sx={{ border: "1px black solid", borderRadius: "5px", mb: ".5em", width: "90%" }} key={index}>
-            {player}
+            {player.name} {`(${player.role})`}
           </ListItem>
         ))}
       </List>
