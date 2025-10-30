@@ -29,11 +29,7 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
     socket.emit("getMessages", roomId);
 
     const handleMessages = (incomingMessages: ChatMessage[]) => {
-      if (Array.isArray(incomingMessages)) {
-        setMessages(incomingMessages);
-      } else {
-        setMessages((prevMessages) => [...prevMessages, incomingMessages]);
-      }
+      setMessages(incomingMessages);
     };
 
     socket.on("messageList", (incomingMessages) => {
