@@ -19,6 +19,8 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const playerName = sessionStorage.getItem("playerName");
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -46,7 +48,7 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
-      socket.emit("newMessage", newMessage);
+      socket.emit("newMessage", roomId, playerName, newMessage);
       setNewMessage("");
     }
   };
