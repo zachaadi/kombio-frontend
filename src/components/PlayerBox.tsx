@@ -1,14 +1,9 @@
 // import styles from "../css/PlayerBox.module.css";
-import { Box, Typography, List, ListItem } from "@mui/material";
+import { Box, Typography, List } from "@mui/material";
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
-
-interface Player {
-  name: string;
-  isReady: boolean;
-  role: string;
-  isActive: boolean;
-}
+import PlayerRow from "./PlayerRow";
+import { Player } from "../models/Player";
 
 const PlayerBox = ({ roomId }: { roomId: string }) => {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -46,15 +41,7 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
       >
         Players in lobby
       </Typography>
-      <List sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        {players
-          .filter((player) => player.isActive)
-          .map((player, index) => (
-            <ListItem sx={{ border: "1px black solid", borderRadius: "5px", mb: ".5em", width: "90%" }} key={index}>
-              {player.name} {`(${player.role})`}
-            </ListItem>
-          ))}
-      </List>
+        <PlayerRow players={players}></PlayerRow>
     </Box>
   );
 };

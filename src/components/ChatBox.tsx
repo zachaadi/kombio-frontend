@@ -3,11 +3,7 @@ import { Box, Typography, Paper, TextField, Button, List, ListItem } from "@mui/
 // import styles from "../css/ChatBox.module.css";
 import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../socket";
-
-interface ChatMessage {
-  name: string;
-  message: string;
-}
+import { ChatMessage } from "../models/ChatMessage";
 
 const ChatBox = ({ roomId }: { roomId: string }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
