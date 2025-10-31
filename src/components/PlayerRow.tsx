@@ -2,11 +2,14 @@ import { Player } from "../models/Player";
 import { useState } from "react";
 import { Button, List, ListItem, Tooltip, TextField } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import { socket } from "../socket";
 
 const PlayerRow = ({ players }: { players: Player[] }) => {
   const [editField, setEditField] = useState(false);
   const [newName, setNewName] = useState("");
+
   const playerName = sessionStorage.getItem("playerName");
+  const roomId = sessionStorage.getItem("roomId");
 
   const editNameToggler = (name: string) => {
     setEditField(true);
@@ -16,7 +19,8 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
   const editNameHandler = (e: React.FormEvent) => {
     e.preventDefault();
     setEditField(false);
-    console.log(newName, "new name");
+    socket.emit("editName", roomId, playerName, newName);
+    sessionStorage.setItem("playerName", newName.trim());
     setNewName("");
   };
 
