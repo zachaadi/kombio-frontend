@@ -1,11 +1,12 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Button, Grid } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
 import { socket } from "../socket";
 
 const GameSetup = ({ roomId }: { roomId: string }) => {
   const [readyUp, setReadyUp] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
   const playerName = sessionStorage.getItem("playerName");
 
   const copyToClipboard = () => {
@@ -17,6 +18,21 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
     setReadyUp(!readyUp);
     socket.emit("readyUp", roomId, playerName);
   };
+
+  const startGameHandler = () => {
+    console.log("BEGIN GAME");
+  };
+
+  useEffect(() => {
+    socket.on("allReady", (room) => {
+      console.log(room, "room");
+      setDisabled(false);
+    });
+
+    return () => {
+      socket.off("allReady");
+    };
+  }, [roomId]);
 
   return (
     <Box
@@ -51,9 +67,18 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
       <Typography variant={"body1"} sx={{ pt: "1em" }}>
         Welcome to the lobby! Waiting for players to ready up...
       </Typography>
-      <Button onClick={readyUpHandler} variant="contained">
-        Readyup
-      </Button>
+      <Grid sx={{ pb: "1em", pt: "1em" }} container spacing={{ xs: 2 }} direction={{ xs: "column", md: "row" }}>
+        <Grid>
+          <Button sx={{ paddingLeft: "1.75em", paddingRight: "1.75em" }} onClick={readyUpHandler} variant="contained">
+            Ready up
+          </Button>
+        </Grid>
+        <Grid>
+          <Button disabled={disabled} onClick={startGameHandler} variant="contained">
+            Start Game
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
