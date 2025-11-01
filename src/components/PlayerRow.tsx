@@ -13,7 +13,7 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
   const roomId = sessionStorage.getItem("roomId");
 
   const editNameToggler = (name: string) => {
-    setEditField(true);
+    setEditField(!editField);
     setNewName(name);
   };
 
