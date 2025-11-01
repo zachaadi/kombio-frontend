@@ -2,6 +2,7 @@ import { Player } from "../models/Player";
 import { useState } from "react";
 import { Button, List, ListItem, Tooltip, TextField } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import CloseIcon from "@mui/icons-material/Close";
 import { socket } from "../socket";
 
 const PlayerRow = ({ players }: { players: Player[] }) => {
@@ -14,6 +15,10 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
   const editNameToggler = (name: string) => {
     setEditField(true);
     setNewName(name);
+  };
+
+  const removePlayer = (name: string) => {
+    socket.emit("removePlayer", roomId, name);
   };
 
   const editNameHandler = (e: React.FormEvent) => {
@@ -53,12 +58,20 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
               ) : (
                 `${player.name} ${player.role == "admin" ? "(admin)" : ""} ${playerName == player.name ? "(you)" : ""}`
               )}
-              {playerName == player.name && (
+              {playerName == player.name ? (
                 <Tooltip title="Edit Name">
                   <Button onClick={() => editNameToggler(player.name)}>
                     <EditNoteIcon sx={{ color: "grey" }} />
                   </Button>
                 </Tooltip>
+              ) : players.find((player) => player.name == playerName)?.role == "admin" ? (
+                <Tooltip title="Remove Player">
+                  <Button onClick={() => removePlayer(player.name)}>
+                    <CloseIcon sx={{ color: "red" }} />
+                  </Button>
+                </Tooltip>
+              ) : (
+                ""
               )}
             </ListItem>
           ))}
