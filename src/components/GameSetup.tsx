@@ -1,18 +1,31 @@
-import { useEffect } from "react";
+import { useState } from "react";
+
 import { Box, Typography, Paper, Button, Grid } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
 import { socket } from "../socket";
 
 const GameSetup = ({ roomId }: { roomId: string }) => {
+  const [readyUp, setReadyUp] = useState(false);
+  const playerName = sessionStorage.getItem("playerName");
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
     socket.emit("sendSnackbar", "info", "Copied!");
   };
 
-  useEffect(() => {}, []);
+  const readyUpHandler = () => {
+    setReadyUp(!readyUp);
+    socket.emit("readyUp", roomId, playerName);
+  };
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
       <Typography variant={"h5"} sx={{ fontWeight: 700, pt: "1em" }}>
         Lobby Name: {roomId}
       </Typography>
@@ -38,6 +51,9 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
       <Typography variant={"body1"} sx={{ pt: "1em" }}>
         Welcome to the lobby! Waiting for players to ready up...
       </Typography>
+      <Button onClick={readyUpHandler} variant="contained">
+        Readyup
+      </Button>
     </Box>
   );
 };

@@ -41,7 +41,7 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
       >
         Players in lobby
       </Typography>
-        <PlayerRow players={players}></PlayerRow>
+      <PlayerRow players={players}></PlayerRow>
     </Box>
   );
 };

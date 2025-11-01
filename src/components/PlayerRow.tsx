@@ -32,7 +32,7 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
           .map((player, index) => (
             <ListItem
               sx={{
-                border: "1px black solid",
+                border: player.isReady == true ? "2px green solid" : "2px black solid",
                 borderRadius: "5px",
                 mb: ".5em",
                 width: "90%",
