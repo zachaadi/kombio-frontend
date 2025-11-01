@@ -46,10 +46,12 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
                     <TextField value={newName} autoFocus onChange={(e) => setNewName(e.target.value)}></TextField>
                   </form>
                 ) : (
-                  `${player.name} (${player.role}) ${playerName == player.name ? "(you)" : ""}`
+                  `${player.name} ${player.role == "admin" ? "(admin)" : ""} ${
+                    playerName == player.name ? "(you)" : ""
+                  }`
                 )
               ) : (
-                `${player.name} (${player.role}) ${playerName == player.name ? "(you)" : ""}`
+                `${player.name} ${player.role == "admin" ? "(admin)" : ""} ${playerName == player.name ? "(you)" : ""}`
               )}
               {playerName == player.name && (
                 <Tooltip title="Edit Name">
