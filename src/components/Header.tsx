@@ -16,27 +16,40 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid container spacing={2}>
-            <Grid>
-              <Link to="/" onClick={clearSessionStorage}>
-                <img src={logo} alt="Logo" className={styles.logo} />
-              </Link>
-            </Grid>
+          <Grid
+            sx={{
+              minWidth: "100%",
+              justifyContent: "space-between",
+            }}
+            container
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Grid sx={{paddingRight: "1em"}}>
+                <Link to="/" onClick={clearSessionStorage}>
+                  <img src={logo} alt="Logo" className={styles.logo} />
+                </Link>
+              </Grid>
 
-            <Grid>
-              <Button>
-                <Link className={styles.links} to="/rules">
-                  Rules
-                </Link>
-              </Button>
-            </Grid>
-            <Grid>
-              <Button>
-                <Link className={styles.links} to="/stats">
-                  Stats
-                </Link>
-              </Button>
-            </Grid>
+              <Grid sx={{paddingRight: "1em"}}>
+                <Button>
+                  <Link className={styles.links} to="/rules">
+                    Rules
+                  </Link>
+                </Button>
+              </Grid>
+              <Grid sx={{paddingRight: "1em"}}>
+                <Button>
+                  <Link className={styles.links} to="/stats">
+                    Stats
+                  </Link>
+                </Button>
+              </Grid>
+            </Box>
 
             <Grid>
               <Button className={styles.links} variant="contained">
