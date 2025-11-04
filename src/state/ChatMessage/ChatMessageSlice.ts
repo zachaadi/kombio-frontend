@@ -17,12 +17,12 @@ const chatMessageSlice = createSlice({
   name: "chatmessage",
   initialState,
   reducers: {
-    incomingMessage: (state, action: PayloadAction<ChatMessage[]>) => {
+    getMessages: (state, action: PayloadAction<ChatMessage[]>) => {
       state.messages = action.payload;
     },
   },
 });
 
-export const { incomingMessage } = chatMessageSlice.actions;
+export const { getMessages } = chatMessageSlice.actions;
 
 export default chatMessageSlice.reducer;

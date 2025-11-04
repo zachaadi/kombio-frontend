@@ -5,7 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../socket";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/state/store";
-import { incomingMessage } from "../state/ChatMessage/ChatMessageSlice";
+import { getMessages } from "../state/ChatMessage/ChatMessageSlice";
 import { ChatMessage } from "../state/ChatMessage/ChatMessageSlice";
 
 const ChatBox = ({ roomId }: { roomId: string }) => {
@@ -29,12 +29,12 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
   useEffect(() => {
     socket.emit("getMessages", roomId);
 
-    const handleMessages = (incomingMessages: ChatMessage[]) => {
-      dispatch(incomingMessage(incomingMessages));
+    const handleMessages = (messageList: ChatMessage[]) => {
+      dispatch(getMessages(messageList));
     };
 
-    socket.on("messageList", (incomingMessages) => {
-      handleMessages(incomingMessages);
+    socket.on("messageList", (messageList) => {
+      handleMessages(messageList);
     });
 
     return () => {
