@@ -3,10 +3,15 @@ import { Box, Typography, Paper, TextField, Button, List, ListItem } from "@mui/
 // import styles from "../css/ChatBox.module.css";
 import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../socket";
-import { ChatMessage } from "../models/ChatMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/state/store";
+import { incomingMessage } from "../state/ChatMessage/ChatMessageSlice";
+import { ChatMessage } from "../state/ChatMessage/ChatMessageSlice";
 
 const ChatBox = ({ roomId }: { roomId: string }) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const messages = useSelector((state: RootState) => state.chatmessage.messages);
+  const dispatch = useDispatch();
+
   const [newMessage, setNewMessage] = useState("");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -25,7 +30,7 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
     socket.emit("getMessages", roomId);
 
     const handleMessages = (incomingMessages: ChatMessage[]) => {
-      setMessages(incomingMessages);
+      dispatch(incomingMessage(incomingMessages));
     };
 
     socket.on("messageList", (incomingMessages) => {
