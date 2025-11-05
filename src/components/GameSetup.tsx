@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Button, Grid } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
 import { socket } from "../socket";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
 
 const GameSetup = ({ roomId }: { roomId: string }) => {
   const [readyUp, setReadyUp] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const players = useSelector((state: RootState) => state.player.players);
 
   const playerName = sessionStorage.getItem("playerName");
 
@@ -25,12 +28,16 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
 
   useEffect(() => {
     socket.on("allReady", (room) => {
-      console.log(room, "room");
       setDisabled(false);
+    });
+
+    socket.on("notReady", (room) => {
+      setDisabled(true);
     });
 
     return () => {
       socket.off("allReady");
+      socket.off("notReady");
     };
   }, [roomId]);
 
@@ -65,18 +72,27 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
       </Paper>
 
       <Typography variant={"body1"} sx={{ pt: "1em" }}>
-        Welcome to the lobby! Waiting for players to ready up...
+        Welcome to the lobby! Waiting for admin to start game...
       </Typography>
       <Grid sx={{ pb: "1em", pt: "1em" }} container spacing={{ xs: 2 }} direction={{ xs: "column", md: "row" }}>
         <Grid>
-          <Button color="success" sx={{ paddingLeft: "1.75em", paddingRight: "1.75em" }} onClick={readyUpHandler} variant="contained">
+          <Button
+            color="success"
+            sx={{ paddingLeft: "1.75em", paddingRight: "1.75em" }}
+            onClick={readyUpHandler}
+            variant="contained"
+          >
             Ready up
           </Button>
         </Grid>
         <Grid>
-          <Button disabled={disabled} onClick={startGameHandler} variant="contained">
-            Start Game
-          </Button>
+          {players.find((player) => player.name == playerName)?.role == "admin" ? (
+            <Button disabled={disabled} onClick={startGameHandler} variant="contained">
+              Start Game
+            </Button>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
     </Box>
