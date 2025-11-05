@@ -19,7 +19,6 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
 
   const removePlayer = (name: string) => {
     socket.emit("removePlayer", roomId, name);
-    socket.emit("sendSnackbar", "info", `${name} removed from lobby`);
   };
 
   const editNameHandler = (e: React.FormEvent) => {
