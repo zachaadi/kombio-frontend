@@ -24,6 +24,11 @@ function App() {
       const roomId = sessionStorage.getItem("roomId");
       if (playerName && roomId) {
         socket.emit("reJoinRoom", roomId, playerName);
+      } else {
+        if (window.location.href.includes("/lobby-room/")) {
+          const roomId = window.location.href.substring(33);
+          socket.emit("joinFromUrl", roomId);
+        }
       }
     });
 

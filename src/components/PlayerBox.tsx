@@ -25,6 +25,11 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
       handlePlayers(playerList);
     });
 
+    socket.on("playerFromUrl", (roomId, assignedName) => {
+      sessionStorage.setItem("roomId", roomId.trim());
+      sessionStorage.setItem("playerName", assignedName.trim());
+    });
+
     socket.on("playerLeft", (playerName) => {
       socket.emit("sendSnackbar", "info", `${playerName} left lobby!`);
       socket.emit("getPlayers", roomId);
