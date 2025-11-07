@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -33,5 +33,13 @@
 
 .modal-actions button:first-child {
   background-color: #007bff;
-  /* color: white; */
+}  */
+
+.dialogTitle {
+  text-align: center;
+}
+
+.dialogActions {
+  display: flex !important;
+  justify-content: center !important;
 }

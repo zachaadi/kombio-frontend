@@ -1,10 +1,9 @@
 import "./css/App.css";
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import { socket } from "./socket";
 import LobbyRoom from "./components/LobbyRoom";
-import { useNavigate } from "react-router-dom";
 import RulesPage from "./components/RulesPage";
 import StatsPage from "./components/StatsPage";
 import Snackbar from "@mui/material/Snackbar";
@@ -15,12 +14,22 @@ function App() {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
+  const [severity, setSeverity] = useState<"error" | "info" | "success" | "warning">("info");
 
   useEffect(() => {
     socket.connect();
 
     socket.on("connect", () => {
-      console.log("socket connected: ", socket.id);
+      const playerName = sessionStorage.getItem("playerName");
+      const roomId = sessionStorage.getItem("roomId");
+      if (playerName && roomId) {
+        socket.emit("reJoinRoom", roomId, playerName);
+      } else {
+        if (window.location.href.includes("/lobby-room/")) {
+          const roomId = window.location.href.substring(33);
+          socket.emit("joinFromUrl", roomId);
+        }
+      }
     });
 
     socket.on("roomCreated", (roomId) => {
@@ -29,31 +38,34 @@ function App() {
     });
 
     socket.on("roomJoined", (roomId) => {
-      console.log("Joined room with ID: ", roomId);
       navigate(`/lobby-room/${roomId}`);
-    });
-
-    socket.on("error", (errorMessage) => {
-      setOpenSnackbar(true);
-      setSnackMessage(errorMessage);
     });
 
     socket.on("connect_error", () => {
       setOpenSnackbar(true);
       setSnackMessage("Cannot connect to server");
+      setSeverity("error");
+    });
+
+    socket.on("sendSnackbar", (severity, message) => {
+      setOpenSnackbar(true);
+      setSnackMessage(message);
+      setSeverity(severity);
     });
 
     return () => {
-      socket.disconnect();
       socket.off("connect");
       socket.off("roomCreated");
+      socket.off("roomJoined");
+      socket.off("error");
+      socket.off("connect_error");
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
-      <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={() => setOpenSnackbar(false)}>
-        <Alert onClose={() => setOpenSnackbar(false)} severity="error" variant="filled" sx={{ width: "100%" }}>
+      <Snackbar open={openSnackbar} autoHideDuration={4000} onClose={() => setOpenSnackbar(false)}>
+        <Alert onClose={() => setOpenSnackbar(false)} severity={severity} variant="filled" sx={{ width: "100%" }}>
           {snackMessage}
         </Alert>
       </Snackbar>
