@@ -6,6 +6,7 @@ import { socket } from "./socket";
 import LobbyRoom from "./components/LobbyRoom";
 import RulesPage from "./components/RulesPage";
 import StatsPage from "./components/StatsPage";
+import GameRoom from "./components/GameRoom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -74,6 +75,7 @@ function App() {
         <Route path="/lobby-room/:roomId" element={<LobbyRoom />} />
         <Route path="/rules" element={<RulesPage />} />
         <Route path="/stats" element={<StatsPage />} />
+        <Route path="/game-room/:roomId" element={<GameRoom />} />
       </Routes>
     </div>
   );
