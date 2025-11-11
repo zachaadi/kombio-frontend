@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import { socket } from "../socket";
 import PlayerRow from "./PlayerRow";
+import PlayerTurn from "./PlayerTurn";
+
 import { getPlayers, Player } from "../state/Player/PlayerSlice";
 
-const PlayerBox = ({ roomId }: { roomId: string }) => {
+const PlayerBox = ({ roomId, width, gameView }: { roomId: string; width?: string; gameView?: boolean }) => {
   const players = useSelector((state: RootState) => state.player.players);
   const dispatch = useDispatch();
 
@@ -48,7 +50,12 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
   }, [roomId]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: width || "auto",
+        overflowY: "auto",
+      }}
+    >
       <Typography
         sx={{
           fontWeight: 700,
@@ -56,9 +63,9 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
         }}
         variant="h6"
       >
-        Players in lobby
+        {gameView ? "Players in game" : "Players in lobby"}
       </Typography>
-      <PlayerRow players={players}></PlayerRow>
+      {gameView ? <PlayerTurn players={players}></PlayerTurn> : <PlayerRow players={players}></PlayerRow>}
     </Box>
   );
 };

@@ -5,6 +5,7 @@ export interface Player {
   isReady: boolean;
   role: string;
   isActive: boolean;
+  isTurn: boolean;
 }
 
 interface PlayerState {
