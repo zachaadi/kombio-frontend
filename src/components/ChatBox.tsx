@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import { getMessages, ChatMessage } from "../state/ChatMessage/ChatMessageSlice";
 
-const ChatBox = ({ roomId }: { roomId: string }) => {
+const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; width?: string }) => {
   const messages = useSelector((state: RootState) => state.chatmessage.messages);
   const dispatch = useDispatch();
 
@@ -63,8 +63,8 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
         </Typography>
         <Paper
           sx={{
-            minWidth: { xs: "50vw", md: "20vw" },
-            height: { xs: "10vh", md: "60vh" },
+            minWidth: width || { xs: "50vw", md: "20vw" },
+            height: height || { xs: "10vh", md: "60vh" },
             overflowY: "auto",
           }}
         >
@@ -79,8 +79,8 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
         </Paper>
       </Box>
 
-      <Box sx={{ pt: "1em", mt: "auto", margin: "0 auto" }}>
-        <form onSubmit={handleSendMessage}>
+      <Box sx={{ pt: "1em", mt: "auto", margin: "0 auto", width: "100%" }}>
+        <form onSubmit={handleSendMessage} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <TextField
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
@@ -89,7 +89,7 @@ const ChatBox = ({ roomId }: { roomId: string }) => {
             size="small"
           />
           <Button type="submit" sx={{ padding: "1.2em" }}>
-            <SendIcon sx={{ color: "grey" }} />
+            <SendIcon sx={{ color: newMessage.trim() !== "" ? "secondary" : "grey" }} />
           </Button>
         </form>
       </Box>
