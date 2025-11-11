@@ -4,10 +4,12 @@ import { Box, Typography, Paper, Button, Grid } from "@mui/material";
 import { socket } from "../socket";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
+import { useNavigate } from "react-router-dom";
 
 const GameSetup = ({ roomId }: { roomId: string }) => {
   const [readyUp, setReadyUp] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const navigate = useNavigate();
   const players = useSelector((state: RootState) => state.player.players);
 
   const playerName = sessionStorage.getItem("playerName");
@@ -23,23 +25,28 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
   };
 
   const startGameHandler = () => {
-    console.log("BEGIN GAME");
+    socket.emit("beginGame", roomId);
   };
 
   useEffect(() => {
-    socket.on("allReady", (room) => {
+    socket.on("allReady", () => {
       setDisabled(false);
     });
 
-    socket.on("notReady", (room) => {
+    socket.on("notReady", () => {
       setDisabled(true);
+    });
+
+    socket.on("beginningGame", () => {
+      navigate(`/game-room/${roomId}`);
     });
 
     return () => {
       socket.off("allReady");
       socket.off("notReady");
+      socket.off("beginningGame");
     };
-  }, [roomId]);
+  }, [roomId, navigate]);
 
   return (
     <Box
