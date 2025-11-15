@@ -1,9 +1,9 @@
-import { Player } from "../state/Player/PlayerSlice";
+import { Player } from "../../state/Player/PlayerSlice";
 import { useState } from "react";
 import { Button, List, ListItem, Tooltip, TextField } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CloseIcon from "@mui/icons-material/Close";
-import { socket } from "../socket";
+import { socket } from "../../socket";
 
 const PlayerRow = ({ players }: { players: Player[] }) => {
   const [editField, setEditField] = useState(false);

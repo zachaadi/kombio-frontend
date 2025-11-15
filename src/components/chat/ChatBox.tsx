@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { Box, Typography, Paper, TextField, Button, List, ListItem } from "@mui/material";
 // import styles from "../css/ChatBox.module.css";
 import SendIcon from "@mui/icons-material/Send";
-import { socket } from "../socket";
+import { socket } from "../../socket";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/state/store";
-import { getMessages, ChatMessage } from "../state/ChatMessage/ChatMessageSlice";
+import { getMessages, ChatMessage } from "../../state/ChatMessage/ChatMessageSlice";
 
 const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; width?: string }) => {
   const messages = useSelector((state: RootState) => state.chatmessage.messages);

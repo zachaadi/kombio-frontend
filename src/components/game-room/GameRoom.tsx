@@ -1,8 +1,8 @@
 import { Box, Grid, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-import ChatBox from "./ChatBox";
-import PlayerBox from "./PlayerBox";
+import ChatBox from "../chat/ChatBox";
+import PlayerBox from "../player/PlayerBox";
 
 const GameRoom = () => {
   const { roomId: roomId } = useParams();

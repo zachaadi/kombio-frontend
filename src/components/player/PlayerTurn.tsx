@@ -1,4 +1,4 @@
-import { Player } from "../state/Player/PlayerSlice";
+import { Player } from "../../state/Player/PlayerSlice";
 import { List, ListItem } from "@mui/material";
 
 const PlayerTurn = ({ players }: { players: Player[] }) => {

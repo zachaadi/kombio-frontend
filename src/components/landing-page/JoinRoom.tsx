@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "../css/CreateServer.module.css";
-import { socket } from "../socket";
+import styles from "../../css/JoinServer.module.css";
+import { socket } from "../../socket";
 import { Slide, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 
@@ -12,16 +12,15 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const JoinRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");
 
-  const handleCreate = (e: React.FormEvent) => {
+  const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
     setRoomId(roomId.trim());
     setPlayerName(playerName.trim());
-    socket.emit("createRoom", roomId.trim(), playerName.trim());
+    socket.emit("joinRoom", roomId.trim(), playerName.trim());
     sessionStorage.setItem("playerName", playerName.trim());
     sessionStorage.setItem("roomId", roomId.trim());
     handleClose();
@@ -41,9 +40,9 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
       open={open}
       onClose={handleClose}
     >
-      <DialogTitle className={styles.dialogTitle}>Create a room</DialogTitle>
-      <DialogContent>
-        <form onSubmit={handleCreate}>
+      <DialogTitle className={styles.dialogTitle}>Join a room</DialogTitle>
+      <DialogContent className={styles.dialogContent}>
+        <form onSubmit={handleJoin}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <TextField
               required
@@ -55,7 +54,7 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
               required
               onChange={(e) => setRoomId(e.target.value)}
               value={roomId}
-              placeholder="Set Room ID"
+              placeholder="Enter Room ID"
             ></TextField>
           </Box>
 
@@ -72,7 +71,7 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
               variant="contained"
               type="submit"
             >
-              Create Room
+              Join Room
             </Button>
             <Button
               sx={{
@@ -95,4 +94,4 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
   );
 };
 
-export default CreateRoom;
+export default JoinRoom;
