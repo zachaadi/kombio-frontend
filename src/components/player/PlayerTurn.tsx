@@ -1,11 +1,11 @@
 import { Player } from "../../state/Player/PlayerSlice";
-import { List, ListItem } from "@mui/material";
+import { Box, List, ListItem } from "@mui/material";
 
 const PlayerTurn = ({ players }: { players: Player[] }) => {
   const playerName = sessionStorage.getItem("playerName");
 
   return (
-    <div>
+    <Box>
       <List sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         {players
           .filter((player) => player.isActive)
@@ -24,7 +24,7 @@ const PlayerTurn = ({ players }: { players: Player[] }) => {
             </ListItem>
           ))}
       </List>
-    </div>
+    </Box>
   );
 };
 
