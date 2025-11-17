@@ -26,25 +26,25 @@ const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; w
   }, [messages]);
 
   useEffect(() => {
-    socket.emit("getMessages", roomId);
+    socket.emit("getChat", roomId);
 
     const handleMessages = (messageList: ChatMessage[]) => {
       dispatch(getMessages(messageList));
     };
 
-    socket.on("messageList", (messageList) => {
+    socket.on("chatList", (messageList) => {
       handleMessages(messageList);
     });
 
     return () => {
-      socket.off("messageList");
+      socket.off("chatList");
     };
   }, [roomId]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (newMessage.trim() !== "") {
-      socket.emit("newMessage", roomId, playerName, newMessage);
+      socket.emit("newChat", roomId, playerName, newMessage);
       setNewMessage("");
     }
   };
