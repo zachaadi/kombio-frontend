@@ -84,7 +84,7 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
       <Grid sx={{ pb: "1em", pt: "1em" }} container spacing={{ xs: 2 }} direction={{ xs: "column", md: "row" }}>
         <Grid>
           <Button
-            color="success"
+            color={readyUp ? "success" : "info"}
             sx={{ paddingLeft: "1.75em", paddingRight: "1.75em" }}
             onClick={readyUpHandler}
             variant="contained"
