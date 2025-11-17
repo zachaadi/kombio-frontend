@@ -12,7 +12,7 @@ const PlayerTurn = ({ players }: { players: Player[] }) => {
           .map((player, index) => (
             <ListItem
               sx={{
-                border: player.isTurn == true ? "3px green solid" : "2px black solid",
+                border: player.isTurn == true ? "3px blue solid" : "2px black solid",
                 borderRadius: "5px",
                 mb: ".5em",
                 width: "90%",

@@ -1,6 +1,6 @@
 import { Box, Grid, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
-
+import GameBoard from "./GameBoard";
 import ChatBox from "../chat/ChatBox";
 import PlayerBox from "../player/PlayerBox";
 
@@ -11,7 +11,7 @@ const GameRoom = () => {
     <Box sx={{ width: "100vw", height: "calc(100vh - 64px - 16px)" }}>
       <Grid container spacing={1}>
         <Grid sx={{ border: "1px solid red" }} size={{ xs: 10, md: 8 }}>
-          GAME BOARD
+          <GameBoard></GameBoard>
         </Grid>
         <Grid sx={{ border: "1px solid blue" }} size={{ xs: 2, md: 4 }}>
           <Grid
