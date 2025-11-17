@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { socket } from "../../socket";
+import { socket } from "../../app/socket";
 import PlayerRow from "./PlayerRow";
 import PlayerTurn from "./PlayerTurn";
 

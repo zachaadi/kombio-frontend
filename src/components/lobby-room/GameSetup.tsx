@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Button, Grid } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
-import { socket } from "../../socket";
+import { socket } from "../../app/socket";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";

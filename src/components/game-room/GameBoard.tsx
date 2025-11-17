@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { socket } from "../../socket";
+import { socket } from "../../app/socket";
 
 const GameBoard = () => {
   const players = useSelector((state: RootState) => state.player.players);

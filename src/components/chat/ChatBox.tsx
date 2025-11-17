@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Box, Typography, Paper, TextField, Button, List, ListItem } from "@mui/material";
 // import styles from "../css/ChatBox.module.css";
 import SendIcon from "@mui/icons-material/Send";
-import { socket } from "../../socket";
+import { socket } from "../../app/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { getMessages, ChatMessage } from "./ChatMessageSlice";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Box, Button, List, ListItem, Tooltip, TextField } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CloseIcon from "@mui/icons-material/Close";
-import { socket } from "../../socket";
+import { socket } from "../../app/socket";
 
 const PlayerRow = ({ players }: { players: Player[] }) => {
   const [editField, setEditField] = useState(false);

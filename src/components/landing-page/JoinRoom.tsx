@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../css/JoinServer.module.css";
-import { socket } from "../../socket";
+import { socket } from "../../app/socket";
 import { Slide, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 
