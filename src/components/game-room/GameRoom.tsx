@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import GameBoard from "./GameBoard";
 import ChatBox from "../chat/ChatBox";
 import PlayerBox from "../player/PlayerBox";
+import ActionsBox from "./ActionsBox";
 
 const GameRoom = () => {
   const { roomId: roomId } = useParams();
@@ -30,7 +31,7 @@ const GameRoom = () => {
               </Paper>
             </Grid>
             <Grid>
-              <Paper>ActionsBox</Paper>
+              <Paper><ActionsBox></ActionsBox></Paper>
             </Grid>
           </Grid>
         </Grid>
