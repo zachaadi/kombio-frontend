@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import { socket } from "../../socket";
@@ -9,16 +9,14 @@ const GameBoard = () => {
   const playerName = sessionStorage.getItem("playerName");
   const roomId = sessionStorage.getItem("roomId");
 
-  const myTurn = useMemo(() => {
-    const playerTurn = players.find((player) => player.isTurn == true);
-    if (playerTurn) {
-      if (playerTurn.name == playerName) {
-        return true;
-      } else {
-        return false;
-      }
+  let myTurn = false;
+
+  const playerTurn = players.find((player) => player.isTurn == true);
+  if (playerTurn) {
+    if (playerTurn.name == playerName) {
+      myTurn = true;
     }
-  }, [players, playerName]);
+  }
 
   const endTurnHandler = () => {
     socket.emit("nextTurn", roomId);
