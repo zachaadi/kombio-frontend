@@ -5,10 +5,10 @@ import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../../app/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { getMessages, ChatMessage } from "./ChatMessageSlice";
+import { setChat, Chat } from "./ChatSlice";
 
 const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; width?: string }) => {
-  const messages = useSelector((state: RootState) => state.chatmessage.messages);
+  const chat = useSelector((state: RootState) => state.chat.messages);
   const dispatch = useDispatch();
 
   const [newMessage, setNewMessage] = useState("");
@@ -23,17 +23,17 @@ const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; w
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [chat]);
 
   useEffect(() => {
     socket.emit("getChat", roomId);
 
-    const handleMessages = (messageList: ChatMessage[]) => {
-      dispatch(getMessages(messageList));
+    const handleChat = (chatList: Chat[]) => {
+      dispatch(setChat(chatList));
     };
 
-    socket.on("chatList", (messageList) => {
-      handleMessages(messageList);
+    socket.on("chatList", (chatList) => {
+      handleChat(chatList);
     });
 
     return () => {
@@ -69,7 +69,7 @@ const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; w
           }}
         >
           <List>
-            {messages.map((msg, index) => (
+            {chat.map((msg, index) => (
               <ListItem key={index}>
                 <b>{msg.name}</b>: {msg.message}
               </ListItem>
