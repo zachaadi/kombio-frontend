@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/state/store";
+import { RootState } from "../../app/store";
 import { socket } from "../../socket";
 
 const GameBoard = () => {

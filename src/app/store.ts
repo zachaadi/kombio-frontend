@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import chatMessageReducer from "./ChatMessage/ChatMessageSlice";
-import playerReducer from "./Player/PlayerSlice";
+import chatMessageReducer from "../components/chat/ChatMessageSlice";
+import playerReducer from "../components/player/PlayerSlice";
 
 export const store = configureStore({
   reducer: {

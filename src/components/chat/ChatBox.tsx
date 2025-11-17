@@ -4,8 +4,8 @@ import { Box, Typography, Paper, TextField, Button, List, ListItem } from "@mui/
 import SendIcon from "@mui/icons-material/Send";
 import { socket } from "../../socket";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/state/store";
-import { getMessages, ChatMessage } from "../../state/ChatMessage/ChatMessageSlice";
+import { RootState } from "../../app/store";
+import { getMessages, ChatMessage } from "./ChatMessageSlice";
 
 const ChatBox = ({ roomId, height, width }: { roomId: string; height?: string; width?: string }) => {
   const messages = useSelector((state: RootState) => state.chatmessage.messages);

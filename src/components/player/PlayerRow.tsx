@@ -1,4 +1,4 @@
-import { Player } from "../../state/Player/PlayerSlice";
+import { Player } from "./PlayerSlice";
 import { useState } from "react";
 import { Box, Button, List, ListItem, Tooltip, TextField } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";

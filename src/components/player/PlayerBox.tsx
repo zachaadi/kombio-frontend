@@ -3,12 +3,12 @@ import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/state/store";
+import { RootState } from "../../app/store";
 import { socket } from "../../socket";
 import PlayerRow from "./PlayerRow";
 import PlayerTurn from "./PlayerTurn";
 
-import { getPlayers, Player } from "../../state/Player/PlayerSlice";
+import { getPlayers, Player } from "./PlayerSlice";
 
 const PlayerBox = ({ roomId, width, gameView }: { roomId: string; width?: string; gameView?: boolean }) => {
   const players = useSelector((state: RootState) => state.player.players);

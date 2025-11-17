@@ -1,12 +1,12 @@
-import "./css/App.css";
+import "../css/App.css";
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import LandingPage from "./components/landing-page/LandingPage";
-import { socket } from "./socket";
-import LobbyRoom from "./components/lobby-room/LobbyRoom";
-import RulesPage from "./components/header/RulesPage";
-import StatsPage from "./components/header/StatsPage";
-import GameRoom from "./components/game-room/GameRoom";
+import LandingPage from "../components/landing-page/LandingPage";
+import { socket } from "../socket";
+import LobbyRoom from "../components/lobby-room/LobbyRoom";
+import RulesPage from "../components/header/RulesPage";
+import StatsPage from "../components/header/StatsPage";
+import GameRoom from "../components/game-room/GameRoom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
