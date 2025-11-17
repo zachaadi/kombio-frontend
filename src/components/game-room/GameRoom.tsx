@@ -31,7 +31,9 @@ const GameRoom = () => {
               </Paper>
             </Grid>
             <Grid>
-              <Paper><ActionsBox></ActionsBox></Paper>
+              <Paper>
+                <ActionsBox></ActionsBox>
+              </Paper>
             </Grid>
           </Grid>
         </Grid>
