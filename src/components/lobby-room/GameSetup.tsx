@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Paper, Button, Grid } from "@mui/material";
+import { Box, Typography, Paper, Button, Grid, Tooltip } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
 import { socket } from "../../app/socket";
 import { useDispatch, useSelector } from "react-redux";
@@ -97,9 +97,13 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
         </Grid>
         <Grid>
           {players.find((player) => player.name == playerName)?.role == "admin" ? (
-            <Button disabled={disabled} onClick={startGameHandler} variant="contained">
-              Start Game
-            </Button>
+            <Tooltip title={disabled ? "2 players minimum" : ""}>
+              <span>
+                <Button disabled={disabled} onClick={startGameHandler} variant="contained">
+                  Start Game
+                </Button>
+              </span>
+            </Tooltip>
           ) : (
             ""
           )}
