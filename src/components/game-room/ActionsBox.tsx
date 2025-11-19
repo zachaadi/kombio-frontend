@@ -10,6 +10,16 @@ const ActionsBox = ({ roomId }: { roomId: string }) => {
   const actions = useSelector((state: RootState) => state.game.game?.actions || []);
   const dispatch = useDispatch();
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [actions]);
+
   useEffect(() => {
     const handleAction = (actionList: string[]) => {
       dispatch(setAction(actionList));
@@ -24,7 +34,7 @@ const ActionsBox = ({ roomId }: { roomId: string }) => {
     return () => {
       socket.off("actionList");
     };
-  }, [roomId, dispatch]);
+  }, [roomId]);
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
@@ -47,10 +57,12 @@ const ActionsBox = ({ roomId }: { roomId: string }) => {
         >
           <List>
             {actions.map((act, index) => (
-              <ListItem key={index}>{act}</ListItem>
+              <ListItem key={index}>
+                <i>{act}</i>
+              </ListItem>
             ))}
           </List>
-          {/* <div ref={messagesEndRef} /> */}
+          <div ref={messagesEndRef} />
         </Paper>
       </Box>
     </Box>
