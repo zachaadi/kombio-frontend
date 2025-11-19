@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 import { Box, Typography, Paper, Button, Grid } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
 import { socket } from "../../app/socket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
+import { setGame } from "../game-room/GameSlice";
 
 const GameSetup = ({ roomId }: { roomId: string }) => {
   const [readyUp, setReadyUp] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const players = useSelector((state: RootState) => state.player.players);
 
   const playerName = sessionStorage.getItem("playerName");
@@ -37,7 +39,8 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
       setDisabled(true);
     });
 
-    socket.on("beginningGame", () => {
+    socket.on("beginningGame", (game) => {
+      dispatch(setGame(game));
       navigate(`/game-room/${roomId}`);
     });
 

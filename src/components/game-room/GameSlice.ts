@@ -1,0 +1,33 @@
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export interface Game {
+  turnIndex: number;
+  actions: string[];
+}
+
+interface GameState {
+  game: Game | null;
+}
+
+const initialState: GameState = {
+  game: null,
+};
+
+const gameSlice = createSlice({
+  name: "game",
+  initialState,
+  reducers: {
+    setGame: (state, action: PayloadAction<Game>) => {
+      state.game = action.payload;
+    },
+    setAction: (state, action: PayloadAction<string[]>) => {
+      if (state.game) {
+        state.game.actions = action.payload;
+      }
+    },
+  },
+});
+
+export const { setGame, setAction } = gameSlice.actions;
+
+export default gameSlice.reducer;

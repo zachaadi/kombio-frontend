@@ -1,10 +1,12 @@
 import { Box, Button } from "@mui/material";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { socket } from "../../app/socket";
+import { setGame, Game } from "./GameSlice";
 
 const GameBoard = () => {
+  const dispatch = useDispatch();
   const players = useSelector((state: RootState) => state.player.players);
   const playerName = sessionStorage.getItem("playerName");
   const roomId = sessionStorage.getItem("roomId");
@@ -19,16 +21,25 @@ const GameBoard = () => {
   }
 
   const endTurnHandler = () => {
+    socket.emit("newAction", roomId, `${playerName} ends turn`);
     socket.emit("nextTurn", roomId);
   };
 
   useEffect(() => {
-    socket.on("yourTurn", () => {});
+    const handleGame = (game: Game) => {
+      dispatch(setGame(game));
+    };
+
+    socket.on("setGame", (game) => {
+      handleGame(game);
+    });
+
+    socket.emit("getGame", roomId);
 
     return () => {
-      socket.off("yourTurn");
+      socket.off("setGame");
     };
-  }, []);
+  }, [roomId, dispatch]);
 
   return (
     <Box>

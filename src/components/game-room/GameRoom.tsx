@@ -32,7 +32,7 @@ const GameRoom = () => {
             </Grid>
             <Grid>
               <Paper>
-                <ActionsBox></ActionsBox>
+                <ActionsBox roomId={roomId || ""}></ActionsBox>
               </Paper>
             </Grid>
           </Grid>
