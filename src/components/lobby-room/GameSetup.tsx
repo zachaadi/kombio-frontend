@@ -31,6 +31,15 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
   };
 
   useEffect(() => {
+    socket.on("roomStatus", (status) => {
+      if (status == "ready") {
+        setDisabled(false);
+        setReadyUp(true);
+      }
+    });
+
+    socket.emit("getRoomStatus", roomId);
+
     socket.on("allReady", () => {
       setDisabled(false);
     });
