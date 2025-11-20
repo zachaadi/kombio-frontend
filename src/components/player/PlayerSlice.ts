@@ -6,6 +6,7 @@ export interface Player {
   role: string;
   isActive: boolean;
   isTurn: boolean;
+  hand: string[];
 }
 
 interface PlayerState {
