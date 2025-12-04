@@ -10,11 +10,14 @@ const GameRoom = () => {
 
   return (
     <Box sx={{ width: "100vw", height: "calc(100vh - 64px - 16px)" }}>
-      <Grid container spacing={1}>
-        <Grid sx={{ border: "1px solid red" }} size={{ xs: 10, md: 8 }}>
-          <GameBoard></GameBoard>
+      <Grid container spacing={1} sx={{margin: "1em"}}>
+        <Grid size={{ xs: 10, md: 8 }}>
+          <Paper sx={{ height: "100%"}}>
+            <GameBoard></GameBoard>
+          </Paper>
         </Grid>
-        <Grid sx={{ border: "1px solid blue" }} size={{ xs: 2, md: 4 }}>
+
+        <Grid size={{ xs: 2, md: 4 }}>
           <Grid
             container
             spacing={1}
