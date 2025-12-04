@@ -1,6 +1,6 @@
 import "../css/App.css";
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import LandingPage from "../components/landing-page/LandingPage";
 import { socket } from "./socket";
 import LobbyRoom from "../components/lobby-room/LobbyRoom";
@@ -26,10 +26,11 @@ function App() {
       if (playerName && roomId) {
         socket.emit("reJoinRoom", roomId, playerName);
       } else {
-        // if (window.location.href.includes("/lobby-room/")) {
-          const roomId = window.location.href.substring(32);
+        const url = window.location.href;
+        if (url.includes("/lobby-room/") || url.includes("/game-room/")) {
+          const roomId = url.split("/").pop();
           socket.emit("joinFromUrl", roomId);
-        // }
+        }
       }
     });
 
@@ -76,6 +77,7 @@ function App() {
         <Route path="/rules" element={<RulesPage />} />
         <Route path="/stats" element={<StatsPage />} />
         <Route path="/game-room/:roomId" element={<GameRoom />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );
