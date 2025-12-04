@@ -47,7 +47,7 @@ const GameBoard = () => {
         End Turn
       </Button>
       <div>
-        <ul>
+        <ul style={{listStyle: 'none'}}>
           {players
             .find((player) => player.name == playerName)
             ?.hand.map((card, index) => (
