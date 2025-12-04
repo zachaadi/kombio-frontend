@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Deck {
+  cards: string[];
+}
+
 export interface Game {
   turnIndex: number;
   actions: string[];
+  deck: Deck;
 }
 
 interface GameState {

@@ -46,6 +46,15 @@ const GameBoard = () => {
       <Button disabled={!myTurn} onClick={endTurnHandler} variant="contained">
         End Turn
       </Button>
+      <div>
+        <ul>
+          {players
+            .find((player) => player.name == playerName)
+            ?.hand.map((card, index) => (
+              <li key={index}>{card}</li>
+            ))}
+        </ul>
+      </div>
     </Box>
   );
 };
