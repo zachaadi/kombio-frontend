@@ -66,7 +66,6 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
                 border: "1px solid transparent",
                 fontSize: "1em",
                 fontWeight: 500,
-                backgroundColor: "#1a1a1a",
                 textTransform: "none",
               }}
               variant="contained"
@@ -80,7 +79,6 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
                 border: "1px solid transparent",
                 fontSize: "1em",
                 fontWeight: 500,
-                backgroundColor: "#1a1a1a",
                 textTransform: "none",
               }}
               variant="contained"
