@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { socket } from "../../app/socket";
 import { setGame, Game } from "./GameSlice";
+import PlayerHand from "../player/PlayerHand";
 
 const GameBoard = () => {
   const dispatch = useDispatch();
@@ -46,15 +47,9 @@ const GameBoard = () => {
       <Button disabled={!myTurn} onClick={endTurnHandler} variant="contained">
         End Turn
       </Button>
-      <div>
-        <ul style={{listStyle: 'none'}}>
-          {players
-            .find((player) => player.name == playerName)
-            ?.hand.map((card, index) => (
-              <li key={index}>{card}</li>
-            ))}
-        </ul>
-      </div>
+      {players.map((player) => (
+        <PlayerHand key={player.name} name={player.name || ""}></PlayerHand>
+      ))}
     </Box>
   );
 };
