@@ -47,14 +47,58 @@ const GameBoard = () => {
     };
   }, [roomId, dispatch]);
 
+  const getPlayerLayout = () => {
+    const numPlayers = players.length;
+
+    if (numPlayers === 2) {
+      return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+          <PlayerHand key={players[1].name} name={players[1].name || ""} />
+          <PlayerHand key={players[0].name} name={players[0].name || ""} />
+        </Box>
+      );
+    }
+
+    if (numPlayers === 3) {
+      return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+          <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
+            <PlayerHand key={players[1].name} name={players[1].name || ""} />
+            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+          </Box>
+        </Box>
+      );
+    }
+
+    if (numPlayers === 4) {
+      return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <PlayerHand key={players[3].name} name={players[3].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
+            <PlayerHand key={players[1].name} name={players[1].name || ""} />
+            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+          </Box>
+        </Box>
+      );
+    }
+
+    return players.map((player) => <PlayerHand key={player.name} name={player.name || ""} />);
+  };
+
   return (
     <Box>
       <Button disabled={!myTurn} onClick={endTurnHandler} variant="contained">
         End Turn
       </Button>
-      {players.map((player) => (
-        <PlayerHand key={player.name} name={player.name || ""}></PlayerHand>
-      ))}
+      {getPlayerLayout()}
     </Box>
   );
 };
