@@ -31,6 +31,10 @@ const GameBoard = () => {
       dispatch(setGame(game));
     };
 
+    socket.on("viewedCard", (card) => {
+      console.log(card);
+    });
+
     socket.on("setGame", (game) => {
       handleGame(game);
     });
@@ -39,6 +43,7 @@ const GameBoard = () => {
 
     return () => {
       socket.off("setGame");
+      socket.off("viewedCard");
     };
   }, [roomId, dispatch]);
 

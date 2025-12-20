@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Box } from "@mui/material";
 import backCard from "/back-card.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,16 +14,6 @@ const PlayerHand = ({ name }: { name: string }) => {
   const handleView = (index: number) => {
     socket.emit("viewCard", roomId, name, index);
   };
-
-  useEffect(() => {
-    socket.on("viewedCard", (card) => {
-      console.log(card);
-    });
-
-    return () => {
-      socket.off("viewedCard");
-    };
-  }, [roomId]);
 
   return (
     <Box
