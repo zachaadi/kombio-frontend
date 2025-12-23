@@ -47,14 +47,19 @@ const GameBoard = () => {
     };
   }, [roomId, dispatch]);
 
+  const playerIndex = players.findIndex((player) => player.name == playerName);
+
   const getPlayerLayout = () => {
     const numPlayers = players.length;
 
     if (numPlayers === 2) {
       return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
-          <PlayerHand key={players[1].name} name={players[1].name || ""} />
-          <PlayerHand key={players[0].name} name={players[0].name || ""} />
+          <PlayerHand
+            key={players[(playerIndex + 1) % players.length].name}
+            name={players[(playerIndex + 1) % players.length].name || ""}
+          />
+          <PlayerHand key={players[playerIndex].name} name={players[playerIndex].name || ""} />
         </Box>
       );
     }
@@ -63,11 +68,17 @@ const GameBoard = () => {
       return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-            <PlayerHand key={players[1].name} name={players[1].name || ""} />
-            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 1) % players.length].name}
+              name={players[(playerIndex + 1) % players.length].name || ""}
+            />
+            <PlayerHand
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+            <PlayerHand key={players[playerIndex].name} name={players[playerIndex].name || ""} />
           </Box>
         </Box>
       );
@@ -77,14 +88,23 @@ const GameBoard = () => {
       return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PlayerHand key={players[3].name} name={players[3].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 3) % players.length].name}
+              name={players[(playerIndex + 3) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-            <PlayerHand key={players[1].name} name={players[1].name || ""} />
-            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 1) % players.length].name}
+              name={players[(playerIndex + 1) % players.length].name || ""}
+            />
+            <PlayerHand
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+            <PlayerHand key={players[playerIndex].name} name={players[playerIndex].name || ""} />
           </Box>
         </Box>
       );
@@ -94,15 +114,27 @@ const GameBoard = () => {
       return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-            <PlayerHand key={players[3].name} name={players[3].name || ""} />
-            <PlayerHand key={players[4].name} name={players[4].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 3) % players.length].name}
+              name={players[(playerIndex + 3) % players.length].name || ""}
+            />
+            <PlayerHand
+              key={players[(playerIndex + 4) % players.length].name}
+              name={players[(playerIndex + 4) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-            <PlayerHand key={players[1].name} name={players[1].name || ""} />
-            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 1) % players.length].name}
+              name={players[(playerIndex + 1) % players.length].name || ""}
+            />
+            <PlayerHand
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+            <PlayerHand key={players[playerIndex].name} name={players[playerIndex].name || ""} />
           </Box>
         </Box>
       );
@@ -111,18 +143,33 @@ const GameBoard = () => {
       return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PlayerHand key={players[5].name} name={players[5].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 5) % players.length].name}
+              name={players[(playerIndex + 5) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-            <PlayerHand key={players[3].name} name={players[3].name || ""} />
-            <PlayerHand key={players[4].name} name={players[4].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 3) % players.length].name}
+              name={players[(playerIndex + 3) % players.length].name || ""}
+            />
+            <PlayerHand
+              key={players[(playerIndex + 4) % players.length].name}
+              name={players[(playerIndex + 4) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
-            <PlayerHand key={players[1].name} name={players[1].name || ""} />
-            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+            <PlayerHand
+              key={players[(playerIndex + 1) % players.length].name}
+              name={players[(playerIndex + 1) % players.length].name || ""}
+            />
+            <PlayerHand
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
+            />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+            <PlayerHand key={players[playerIndex].name} name={players[playerIndex].name || ""} />
           </Box>
         </Box>
       );
