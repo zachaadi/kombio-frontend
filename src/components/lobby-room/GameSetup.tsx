@@ -106,7 +106,7 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
         </Grid>
         <Grid>
           {players.find((player) => player.name == playerName)?.role == "admin" ? (
-            <Tooltip title={disabled ? "2 players minimum" : ""}>
+            <Tooltip title={players.length == 1 ? "minimum 2 players" : disabled ? "Not all players ready" : ""}>
               <span>
                 <Button disabled={disabled} onClick={startGameHandler} variant="contained">
                   Start Game
