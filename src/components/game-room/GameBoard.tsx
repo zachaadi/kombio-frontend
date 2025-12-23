@@ -90,7 +90,43 @@ const GameBoard = () => {
       );
     }
 
-    return players.map((player) => <PlayerHand key={player.name} name={player.name || ""} />);
+    if (numPlayers === 5) {
+      return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+          <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
+            <PlayerHand key={players[3].name} name={players[3].name || ""} />
+            <PlayerHand key={players[4].name} name={players[4].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
+            <PlayerHand key={players[1].name} name={players[1].name || ""} />
+            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+          </Box>
+        </Box>
+      );
+    }
+    if (numPlayers === 6) {
+      return (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <PlayerHand key={players[5].name} name={players[5].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
+            <PlayerHand key={players[3].name} name={players[3].name || ""} />
+            <PlayerHand key={players[4].name} name={players[4].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
+            <PlayerHand key={players[1].name} name={players[1].name || ""} />
+            <PlayerHand key={players[2].name} name={players[2].name || ""} />
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <PlayerHand key={players[0].name} name={players[0].name || ""} />
+          </Box>
+        </Box>
+      );
+    }
   };
 
   return (
