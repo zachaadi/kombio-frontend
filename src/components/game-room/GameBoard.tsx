@@ -54,7 +54,7 @@ const GameBoard = () => {
 
     if (numPlayers === 2) {
       return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <PlayerHand
             key={players[(playerIndex + 1) % players.length].name}
             name={players[(playerIndex + 1) % players.length].name || ""}
@@ -66,7 +66,7 @@ const GameBoard = () => {
 
     if (numPlayers === 3) {
       return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
             <PlayerHand
               key={players[(playerIndex + 1) % players.length].name}
@@ -86,7 +86,7 @@ const GameBoard = () => {
 
     if (numPlayers === 4) {
       return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <PlayerHand
               key={players[(playerIndex + 3) % players.length].name}
@@ -112,7 +112,7 @@ const GameBoard = () => {
 
     if (numPlayers === 5) {
       return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", gap: 4, justifyContent: "center" }}>
             <PlayerHand
               key={players[(playerIndex + 3) % players.length].name}
@@ -141,7 +141,7 @@ const GameBoard = () => {
     }
     if (numPlayers === 6) {
       return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <PlayerHand
               key={players[(playerIndex + 5) % players.length].name}

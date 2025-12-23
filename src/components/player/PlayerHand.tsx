@@ -37,7 +37,7 @@ const PlayerHand = ({ name }: { name: string }) => {
         {playerHand?.map((card, index) => (
           <Box
             onClick={() => handleView(index)}
-            sx={{ "&:hover": { transform: "scale(1.1)", cursor: "pointer" } }}
+            sx={{ "&:hover": { transform: "scale(1.1)", cursor: "pointer" }, height: "5em" }}
             key={index}
             component={"img"}
             src={backCard}
