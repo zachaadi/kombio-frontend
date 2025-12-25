@@ -1,15 +1,14 @@
 import { Box } from "@mui/material";
 import backCard from "/back-card.svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { socket } from "../../app/socket";
 
 const PlayerHand = ({ name }: { name: string }) => {
   const players = useSelector((state: RootState) => state.player.players);
-  const dispatch = useDispatch();
   const roomId = sessionStorage.getItem("roomId");
-
   const playerHand = players.find((player) => player.name == name)?.hand;
+  const isTurn = players.find((player) => player.name == name)?.isTurn || false;
 
   const handleView = (index: number) => {
     socket.emit("viewCard", roomId, name, index);
@@ -23,7 +22,7 @@ const PlayerHand = ({ name }: { name: string }) => {
         alignItems: "center",
       }}
     >
-      <Box>{name}</Box>
+      <Box sx={{ border: isTurn ? "2px solid blue" : "", borderRadius: "5px" }}>{name}</Box>
 
       <Box
         sx={{

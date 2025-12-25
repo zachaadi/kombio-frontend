@@ -12,7 +12,7 @@ const GameBoard = () => {
   const players = useSelector((state: RootState) => state.player.players);
   const playerName = sessionStorage.getItem("playerName");
   const roomId = sessionStorage.getItem("roomId");
-
+  const playerIndex = players.findIndex((player) => player.name == playerName);
   const myTurn = players.find((player) => player.isTurn == true)?.name == playerName;
 
   const endTurnHandler = () => {
@@ -40,8 +40,6 @@ const GameBoard = () => {
       socket.off("viewedCard");
     };
   }, [roomId, dispatch]);
-
-  const playerIndex = players.findIndex((player) => player.name == playerName);
 
   const getPlayerLayout = () => {
     const numPlayers = players.length;
