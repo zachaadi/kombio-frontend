@@ -111,8 +111,8 @@ const GameBoard = () => {
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <PlayerHand
-              key={players[(playerIndex + 3) % players.length].name}
-              name={players[(playerIndex + 3) % players.length].name || ""}
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
             />
           </Box>
           <Box sx={{ display: "flex", gap: 14, justifyContent: "center" }}>
@@ -136,8 +136,8 @@ const GameBoard = () => {
             </Box>
 
             <PlayerHand
-              key={players[(playerIndex + 2) % players.length].name}
-              name={players[(playerIndex + 2) % players.length].name || ""}
+              key={players[(playerIndex + 3) % players.length].name}
+              name={players[(playerIndex + 3) % players.length].name || ""}
             />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -152,12 +152,12 @@ const GameBoard = () => {
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", gap: 14, justifyContent: "center" }}>
             <PlayerHand
-              key={players[(playerIndex + 3) % players.length].name}
-              name={players[(playerIndex + 3) % players.length].name || ""}
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
             />
             <PlayerHand
-              key={players[(playerIndex + 4) % players.length].name}
-              name={players[(playerIndex + 4) % players.length].name || ""}
+              key={players[(playerIndex + 3) % players.length].name}
+              name={players[(playerIndex + 3) % players.length].name || ""}
             />
           </Box>
           <Box sx={{ display: "flex", gap: 14, justifyContent: "center" }}>
@@ -181,8 +181,8 @@ const GameBoard = () => {
             </Box>
 
             <PlayerHand
-              key={players[(playerIndex + 2) % players.length].name}
-              name={players[(playerIndex + 2) % players.length].name || ""}
+              key={players[(playerIndex + 4) % players.length].name}
+              name={players[(playerIndex + 4) % players.length].name || ""}
             />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -196,14 +196,14 @@ const GameBoard = () => {
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <PlayerHand
-              key={players[(playerIndex + 5) % players.length].name}
-              name={players[(playerIndex + 5) % players.length].name || ""}
+              key={players[(playerIndex + 3) % players.length].name}
+              name={players[(playerIndex + 3) % players.length].name || ""}
             />
           </Box>
           <Box sx={{ display: "flex", gap: 14, justifyContent: "center" }}>
             <PlayerHand
-              key={players[(playerIndex + 3) % players.length].name}
-              name={players[(playerIndex + 3) % players.length].name || ""}
+              key={players[(playerIndex + 2) % players.length].name}
+              name={players[(playerIndex + 2) % players.length].name || ""}
             />
 
             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 4 }}>
@@ -234,8 +234,8 @@ const GameBoard = () => {
             </Box>
 
             <PlayerHand
-              key={players[(playerIndex + 2) % players.length].name}
-              name={players[(playerIndex + 2) % players.length].name || ""}
+              key={players[(playerIndex + 5) % players.length].name}
+              name={players[(playerIndex + 5) % players.length].name || ""}
             />
           </Box>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
