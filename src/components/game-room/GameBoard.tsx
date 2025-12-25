@@ -6,7 +6,6 @@ import { socket } from "../../app/socket";
 import { setGame, Game } from "./GameSlice";
 import PlayerHand from "../player/PlayerHand";
 import deck from "/deck.svg";
-import backCard from "/back-card.svg";
 
 const GameBoard = () => {
   const dispatch = useDispatch();
@@ -14,14 +13,7 @@ const GameBoard = () => {
   const playerName = sessionStorage.getItem("playerName");
   const roomId = sessionStorage.getItem("roomId");
 
-  let myTurn = false;
-
-  const playerTurn = players.find((player) => player.isTurn == true);
-  if (playerTurn) {
-    if (playerTurn.name == playerName) {
-      myTurn = true;
-    }
-  }
+  const myTurn = players.find((player) => player.isTurn == true)?.name == playerName;
 
   const endTurnHandler = () => {
     socket.emit("newAction", roomId, `${playerName} ends turn`);
@@ -72,7 +64,7 @@ const GameBoard = () => {
 
             <Box sx={{ pt: "2em", pb: "2em" }}>
               <Box>Discard</Box>
-              <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={backCard} />
+              <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
             </Box>
           </Box>
 
@@ -105,7 +97,7 @@ const GameBoard = () => {
 
             <Box sx={{ pt: "2em", pb: "2em" }}>
               <Box>Discard</Box>
-              <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={backCard} />
+              <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
             </Box>
           </Box>
 
@@ -141,7 +133,7 @@ const GameBoard = () => {
 
               <Box sx={{ pt: "2em", pb: "2em" }}>
                 <Box>Discard</Box>
-                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={backCard} />
+                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
               </Box>
             </Box>
 
@@ -186,7 +178,7 @@ const GameBoard = () => {
 
               <Box sx={{ pt: "2em", pb: "2em" }}>
                 <Box>Discard</Box>
-                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={backCard} />
+                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
               </Box>
             </Box>
 
@@ -239,7 +231,7 @@ const GameBoard = () => {
             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 4 }}>
               <Box sx={{ pt: "2em", pb: "2em" }}>
                 <Box>Discard</Box>
-                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={backCard} />
+                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
               </Box>
             </Box>
 
