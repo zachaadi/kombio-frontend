@@ -1,0 +1,14 @@
+<svg width="90" height="135" viewBox="0 0 90 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="90" height="135" rx="8" fill="white"/>
+<rect x="4.5" y="4.5" width="81" height="126" rx="7.5" stroke="black"/>
+<circle cx="44.5" cy="38.5" r="7.5" fill="#E42A37"/>
+<rect x="16" y="35" width="58" height="7" rx="2" fill="black"/>
+<circle cx="44.5" cy="54.5" r="7.5" fill="#E42A37"/>
+<rect x="16" y="51" width="58" height="7" rx="2" fill="black"/>
+<circle cx="44.5" cy="81.5" r="7.5" fill="#E42A37"/>
+<rect x="16" y="78" width="58" height="7" rx="2" fill="black"/>
+<circle cx="44.5" cy="97.5" r="7.5" fill="#E42A37"/>
+<rect x="16" y="94" width="58" height="7" rx="2" fill="black"/>
+<path d="M10.5753 18.4659V17.0128L14.2188 11.2727H15.4716V13.2841H14.7301L12.4332 16.919V16.9872H17.6108V18.4659H10.5753ZM14.7642 20V18.0227L14.7983 17.3793V11.2727H16.5284V20H14.7642Z" fill="black"/>
+<path d="M79.4247 116.534V117.987L75.7812 123.727H74.5284V121.716H75.2699L77.5668 118.081V118.013H72.3892V116.534H79.4247ZM75.2358 115V116.977L75.2017 117.621V123.727H73.4716V115H75.2358Z" fill="black"/>
+</svg>
