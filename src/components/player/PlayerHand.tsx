@@ -1,18 +1,36 @@
 import { Box } from "@mui/material";
-import backCard from "/back-card.svg";
-import { useSelector } from "react-redux";
+import backCard from "/backCard.svg";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import { socket } from "../../app/socket";
+import { useEffect } from "react";
+import { getPlayers } from "./PlayerSlice";
 
 const PlayerHand = ({ name }: { name: string }) => {
   const players = useSelector((state: RootState) => state.player.players);
   const roomId = sessionStorage.getItem("roomId");
   const playerHand = players.find((player) => player.name == name)?.hand;
   const isTurn = players.find((player) => player.name == name)?.isTurn || false;
+  const dispatch = useDispatch();
 
   const handleView = (index: number) => {
     socket.emit("viewCard", roomId, name, index);
   };
+
+  useEffect(() => {
+    // socket.on("flippedCard", (card, name) => {
+    //   console.log(card);
+    // });
+
+    socket.on("drawnCard", (players) => {
+      dispatch(getPlayers(players));
+    });
+
+    return () => {
+      // socket.off("flippedCard");
+      socket.off("drawnCard");
+    };
+  }, [roomId]);
 
   return (
     <Box
