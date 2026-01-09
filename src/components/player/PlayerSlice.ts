@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Card } from "../game-room/GameSlice";
 
 export interface Player {
   name: string;
@@ -6,7 +7,7 @@ export interface Player {
   role: string;
   isActive: boolean;
   isTurn: boolean;
-  hand: string[];
+  hand: Card[];
 }
 
 interface PlayerState {

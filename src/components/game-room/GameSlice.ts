@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface Card {
+  id: number;
+  value: string;
+}
 interface Deck {
-  cards: string[];
+  cards: Card[];
 }
 
 export interface Game {

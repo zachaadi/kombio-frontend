@@ -22,16 +22,13 @@ const GameBoard = () => {
 
   const handleDrawCard = () => {
     socket.emit("drawCard", roomId, playerName);
+    socket.emit("newAction", roomId, `${playerName} draws card`);
   };
 
   useEffect(() => {
     const handleGame = (game: Game) => {
       dispatch(setGame(game));
     };
-
-    socket.on("viewedCard", (card) => {
-      console.log(card);
-    });
 
     socket.on("setGame", (game) => {
       handleGame(game);
@@ -41,7 +38,6 @@ const GameBoard = () => {
 
     return () => {
       socket.off("setGame");
-      socket.off("viewedCard");
     };
   }, [roomId, dispatch]);
 
