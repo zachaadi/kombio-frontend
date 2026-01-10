@@ -1,4 +1,4 @@
-# kombio-fronend
+# kombio-frontend
 
 ### Prod URL
 - https://kombio-frontend.onrender.com/
