@@ -6,7 +6,7 @@ import { socket } from "../../app/socket";
 import { useEffect } from "react";
 import { getPlayers } from "./PlayerSlice";
 
-import cardFlipped from "/cardFlipped.svg"
+import cardFlipped from "/cardFlipped.svg";
 import negativeOneCard from "/negativeOneCard.svg";
 import zeroCard from "/zeroCard.svg";
 import oneCard from "/oneCard.svg";
@@ -35,7 +35,6 @@ const PlayerHand = ({ name }: { name: string }) => {
   const handleFlip = (id: number) => {
     socket.emit("newAction", roomId, `${myName} flips card`);
     socket.emit("flipCard", roomId, myName, id, name);
-
   };
 
   const displayCard = (id: number) => {
@@ -71,6 +70,7 @@ const PlayerHand = ({ name }: { name: string }) => {
     if (id == 30) return zeroCard;
     if (id == 31) return negativeOneCard;
     if (id == 32) return negativeOneCard;
+    if (id == 33) return cardFlipped;
     return backCard;
   };
 
@@ -118,7 +118,13 @@ const PlayerHand = ({ name }: { name: string }) => {
             sx={{ "&:hover": { transform: "scale(1.1)", cursor: "pointer" }, height: "5em" }}
             key={index}
             component={"img"}
-            src={card.isFlipped == true ? displayCard(card.id) : backCard}
+            src={
+              card.isFlipped == true && card.flippedBy == myName
+                ? displayCard(card.id)
+                : card.isFlipped == true && card.flippedBy != myName
+                ? displayCard(33)
+                : backCard
+            }
           />
         ))}
       </Box>
