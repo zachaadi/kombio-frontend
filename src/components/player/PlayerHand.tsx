@@ -3,9 +3,10 @@ import backCard from "/backCard.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../app/store";
 import { socket } from "../../app/socket";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getPlayers } from "./PlayerSlice";
 
+import cardFlipped from "/cardFlipped.svg"
 import negativeOneCard from "/negativeOneCard.svg";
 import zeroCard from "/zeroCard.svg";
 import oneCard from "/oneCard.svg";
@@ -26,26 +27,15 @@ import fourteenCard from "/fourteenCard.svg";
 const PlayerHand = ({ name }: { name: string }) => {
   const players = useSelector((state: RootState) => state.player.players);
   const roomId = sessionStorage.getItem("roomId");
-  const playerName = sessionStorage.getItem("playerName");
+  const myName = sessionStorage.getItem("playerName");
   const playerHand = players.find((player) => player.name == name)?.hand;
   const isTurn = players.find((player) => player.name == name)?.isTurn || false;
   const dispatch = useDispatch();
 
-  const [flippedCardIds, setFlippedCardIds] = useState<Set<number>>(new Set());
-
   const handleFlip = (id: number) => {
-    socket.emit("newAction", roomId, `${playerName} flips card`);
+    socket.emit("newAction", roomId, `${myName} flips card`);
+    socket.emit("flipCard", roomId, myName, id, name);
 
-    // socket.emit("flipCard", roomId, name, id);
-    setFlippedCardIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
   };
 
   const displayCard = (id: number) => {
@@ -87,18 +77,18 @@ const PlayerHand = ({ name }: { name: string }) => {
   useEffect(() => {
     socket.on("drawnCard", (players, drawnCard, name) => {
       dispatch(getPlayers(players));
-      if (name == playerName) {
+      if (name == myName) {
         handleFlip(drawnCard);
       }
     });
 
-    // socket.on("flippedCard", (card) => {
-    //   // dispatch(getPlayers(players));
-    //   console.log(card);
-    // });
+    socket.on("flippedCard", (card, players) => {
+      dispatch(getPlayers(players));
+      console.log(card);
+    });
 
     return () => {
-      // socket.off("flippedCard");
+      socket.off("flippedCard");
       socket.off("drawnCard");
     };
   }, [dispatch]);
@@ -128,7 +118,7 @@ const PlayerHand = ({ name }: { name: string }) => {
             sx={{ "&:hover": { transform: "scale(1.1)", cursor: "pointer" }, height: "5em" }}
             key={index}
             component={"img"}
-            src={flippedCardIds.has(card.id) ? displayCard(card.id) : backCard}
+            src={card.isFlipped == true ? displayCard(card.id) : backCard}
           />
         ))}
       </Box>

@@ -3,6 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface Card {
   id: number;
   value: string;
+  isFlipped: boolean;
+  flippedBy: string;
 }
 interface Deck {
   cards: Card[];
