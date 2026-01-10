@@ -97,7 +97,15 @@ const GameBoard = () => {
             <Box sx={{ pt: "2em", pb: "2em" }}>
               <Box>Deck</Box>
               <Tooltip title={"Draw card"}>
-                <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
+                <Box
+                  onClick={handleDrawCard}
+                  sx={{
+                    "&:hover": { cursor: "pointer", border: "1px blue solid", borderRadius: "5px" },
+                    height: "5em",
+                  }}
+                  component={"img"}
+                  src={deck}
+                />
               </Tooltip>
             </Box>
 
@@ -133,7 +141,15 @@ const GameBoard = () => {
               <Box sx={{ pt: "2em", pb: "2em" }}>
                 <Box>Deck</Box>
                 <Tooltip title={"Draw card"}>
-                  <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
+                  <Box
+                    onClick={handleDrawCard}
+                    sx={{
+                      "&:hover": { cursor: "pointer", border: "1px blue solid", borderRadius: "5px" },
+                      height: "5em",
+                    }}
+                    component={"img"}
+                    src={deck}
+                  />
                 </Tooltip>
               </Box>
 
@@ -178,7 +194,15 @@ const GameBoard = () => {
               <Box sx={{ pt: "2em", pb: "2em" }}>
                 <Box>Deck</Box>
                 <Tooltip title={"Draw card"}>
-                  <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
+                  <Box
+                    onClick={handleDrawCard}
+                    sx={{
+                      "&:hover": { cursor: "pointer", border: "1px blue solid", borderRadius: "5px" },
+                      height: "5em",
+                    }}
+                    component={"img"}
+                    src={deck}
+                  />
                 </Tooltip>
               </Box>
 
@@ -218,7 +242,15 @@ const GameBoard = () => {
               <Box sx={{ pt: "2em", pb: "2em" }}>
                 <Box>Deck</Box>
                 <Tooltip title={"Draw card"}>
-                  <Box sx={{ "&:hover": { cursor: "pointer" }, height: "5em" }} component={"img"} src={deck} />
+                  <Box
+                    onClick={handleDrawCard}
+                    sx={{
+                      "&:hover": { cursor: "pointer", border: "1px blue solid", borderRadius: "5px" },
+                      height: "5em",
+                    }}
+                    component={"img"}
+                    src={deck}
+                  />
                 </Tooltip>
               </Box>
             </Box>
