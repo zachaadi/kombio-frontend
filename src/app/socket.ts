@@ -1,5 +1,9 @@
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:3000";
+//dev
+// const URL = "http://localhost:3000"; 
+
+//railway deployment
+const URL = 'kombio-backend-production.up.railway.app'
 
 export const socket = io(URL, { autoConnect: false }); 
