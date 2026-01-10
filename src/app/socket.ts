@@ -4,6 +4,6 @@ import { io } from "socket.io-client";
 // const URL = "http://localhost:3000"; 
 
 //railway deployment
-const URL = 'kombio-backend-production.up.railway.app'
+const URL = import.meta.env.VITE_BACKEND_URL
 
 export const socket = io(URL, { autoConnect: false }); 
