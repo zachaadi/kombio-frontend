@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styles from "../css/CreateServer.module.css";
-import { socket } from "../socket";
+import styles from "../../css/CreateServer.module.css";
+import { socket } from "../../app/socket";
 import { Slide, Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 
@@ -66,7 +66,6 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
                 border: "1px solid transparent",
                 fontSize: "1em",
                 fontWeight: 500,
-                backgroundColor: "#1a1a1a",
                 textTransform: "none",
               }}
               variant="contained"
@@ -80,7 +79,6 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
                 border: "1px solid transparent",
                 fontSize: "1em",
                 fontWeight: 500,
-                backgroundColor: "#1a1a1a",
                 textTransform: "none",
               }}
               variant="contained"

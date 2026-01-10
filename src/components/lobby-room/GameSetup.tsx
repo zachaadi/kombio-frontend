@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Paper, Button, Grid } from "@mui/material";
+import { Box, Typography, Paper, Button, Grid, Tooltip } from "@mui/material";
 // import styles from "../css/GameSetup.module.css";
-import { socket } from "../socket";
-import { useSelector } from "react-redux";
-import { RootState } from "@/state/store";
+import { socket } from "../../app/socket";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { useNavigate } from "react-router-dom";
+import { setGame } from "../game-room/GameSlice";
 
 const GameSetup = ({ roomId }: { roomId: string }) => {
   const [readyUp, setReadyUp] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const players = useSelector((state: RootState) => state.player.players);
 
   const playerName = sessionStorage.getItem("playerName");
@@ -23,23 +27,38 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
   };
 
   const startGameHandler = () => {
-    console.log("BEGIN GAME");
+    socket.emit("beginGame", roomId);
   };
 
   useEffect(() => {
-    socket.on("allReady", (room) => {
+    socket.on("roomStatus", (status) => {
+      if (status == "ready") {
+        setDisabled(false);
+        setReadyUp(true);
+      }
+    });
+
+    socket.emit("getRoomStatus", roomId);
+
+    socket.on("allReady", () => {
       setDisabled(false);
     });
 
-    socket.on("notReady", (room) => {
+    socket.on("notReady", () => {
       setDisabled(true);
+    });
+
+    socket.on("beginningGame", (game) => {
+      dispatch(setGame(game));
+      navigate(`/game-room/${roomId}`);
     });
 
     return () => {
       socket.off("allReady");
       socket.off("notReady");
+      socket.off("beginningGame");
     };
-  }, [roomId]);
+  }, [roomId, navigate]);
 
   return (
     <Box
@@ -77,7 +96,7 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
       <Grid sx={{ pb: "1em", pt: "1em" }} container spacing={{ xs: 2 }} direction={{ xs: "column", md: "row" }}>
         <Grid>
           <Button
-            color="success"
+            color={readyUp ? "success" : "info"}
             sx={{ paddingLeft: "1.75em", paddingRight: "1.75em" }}
             onClick={readyUpHandler}
             variant="contained"
@@ -87,9 +106,13 @@ const GameSetup = ({ roomId }: { roomId: string }) => {
         </Grid>
         <Grid>
           {players.find((player) => player.name == playerName)?.role == "admin" ? (
-            <Button disabled={disabled} onClick={startGameHandler} variant="contained">
-              Start Game
-            </Button>
+            <Tooltip title={players.length == 1 ? "minimum 2 players" : disabled ? "Not all players ready" : ""}>
+              <span>
+                <Button disabled={disabled} onClick={startGameHandler} variant="contained">
+                  Start Game
+                </Button>
+              </span>
+            </Tooltip>
           ) : (
             ""
           )}

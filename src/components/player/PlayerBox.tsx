@@ -3,12 +3,14 @@ import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/state/store";
-import { socket } from "../socket";
+import { RootState } from "../../app/store";
+import { socket } from "../../app/socket";
 import PlayerRow from "./PlayerRow";
-import { getPlayers, Player } from "../state/Player/PlayerSlice";
+import PlayerTurn from "./PlayerTurn";
 
-const PlayerBox = ({ roomId }: { roomId: string }) => {
+import { getPlayers, Player } from "./PlayerSlice";
+
+const PlayerBox = ({ roomId, width, gameView }: { roomId: string; width?: string; gameView?: boolean }) => {
   const players = useSelector((state: RootState) => state.player.players);
   const dispatch = useDispatch();
 
@@ -48,7 +50,12 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
   }, [roomId]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: width || "auto",
+        overflowY: "auto",
+      }}
+    >
       <Typography
         sx={{
           fontWeight: 700,
@@ -56,9 +63,9 @@ const PlayerBox = ({ roomId }: { roomId: string }) => {
         }}
         variant="h6"
       >
-        Players in lobby
+        {gameView ? "Players in game" : "Players in lobby"}
       </Typography>
-      <PlayerRow players={players}></PlayerRow>
+      {gameView ? <PlayerTurn players={players}></PlayerTurn> : <PlayerRow players={players}></PlayerRow>}
     </Box>
   );
 };

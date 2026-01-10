@@ -1,9 +1,9 @@
-import { Player } from "../state/Player/PlayerSlice";
+import { Player } from "./PlayerSlice";
 import { useState } from "react";
-import { Button, List, ListItem, Tooltip, TextField } from "@mui/material";
+import { Box, Button, List, ListItem, Tooltip, TextField } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import CloseIcon from "@mui/icons-material/Close";
-import { socket } from "../socket";
+import { socket } from "../../app/socket";
 
 const PlayerRow = ({ players }: { players: Player[] }) => {
   const [editField, setEditField] = useState(false);
@@ -30,7 +30,7 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
   };
 
   return (
-    <div>
+    <Box>
       <List sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         {players
           .filter((player) => player.isActive)
@@ -76,7 +76,7 @@ const PlayerRow = ({ players }: { players: Player[] }) => {
             </ListItem>
           ))}
       </List>
-    </div>
+    </Box>
   );
 };
 

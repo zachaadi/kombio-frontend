@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 // import styles from "../css/LobbyRoom.module.css";
 import { Container, Grid, Paper } from "@mui/material";
 import GameSetup from "./GameSetup";
-import PlayerBox from "./PlayerBox";
-import ChatBox from "./ChatBox";
+import PlayerBox from "../player/PlayerBox";
+import ChatBox from "../chat/ChatBox";
 
 const LobbyRoom = () => {
   const { roomId: roomId } = useParams();

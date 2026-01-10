@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import { Link } from "react-router";
 import logo from "/kombio-logo.png";
-import styles from "../css/Header.module.css";
+import styles from "../../css/Header.module.css";
 import Grid from "@mui/material/Grid";
 
 export default function Header() {
@@ -29,20 +29,20 @@ export default function Header() {
                 alignItems: "center",
               }}
             >
-              <Grid sx={{paddingRight: "1em"}}>
+              <Grid sx={{ paddingRight: "1em" }}>
                 <Link to="/" onClick={clearSessionStorage}>
                   <img src={logo} alt="Logo" className={styles.logo} />
                 </Link>
               </Grid>
 
-              <Grid sx={{paddingRight: "1em"}}>
+              <Grid sx={{ paddingRight: "1em" }}>
                 <Button>
                   <Link className={styles.links} to="/rules">
                     Rules
                   </Link>
                 </Button>
               </Grid>
-              <Grid sx={{paddingRight: "1em"}}>
+              <Grid sx={{ paddingRight: "1em" }}>
                 <Button>
                   <Link className={styles.links} to="/stats">
                     Stats
