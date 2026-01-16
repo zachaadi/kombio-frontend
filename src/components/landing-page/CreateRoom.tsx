@@ -19,11 +19,11 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
-    setRoomId(roomId.trim());
+    setRoomId(roomId.trim().toUpperCase());
     setPlayerName(playerName.trim());
-    socket.emit("createRoom", roomId.trim(), playerName.trim());
+    socket.emit("createRoom", roomId.trim().toUpperCase(), playerName.trim());
     sessionStorage.setItem("playerName", playerName.trim());
-    sessionStorage.setItem("roomId", roomId.trim());
+    sessionStorage.setItem("roomId", roomId.trim().toUpperCase());
     handleClose();
   };
 
