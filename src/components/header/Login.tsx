@@ -38,7 +38,18 @@ const Login = ({
     e.preventDefault();
     console.log(username);
     console.log(password);
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setUsername("");
+    setPassword("");
     onClose();
+  };
+
+  const switchDialog = () => {
+    handleClose();
+    onSwitchToCreate();
   };
 
   return (
@@ -48,7 +59,7 @@ const Login = ({
           transition: Transition,
         }}
         open={open}
-        onClose={onClose}
+        onClose={handleClose}
       >
         <DialogTitle sx={{ textAlign: "center" }} className="">
           Login or create account
@@ -73,14 +84,14 @@ const Login = ({
               <Button type="submit" variant="contained">
                 Login
               </Button>
-              <Button variant="contained" onClick={onClose}>
+              <Button variant="contained" onClick={handleClose}>
                 Cancel
               </Button>
             </DialogActions>
           </form>
           <Typography sx={{ textAlign: "center", fontStyle: "italic" }}>Don't have an account?</Typography>
           <Typography
-            onClick={onSwitchToCreate}
+            onClick={switchDialog}
             sx={{
               "&:hover": { cursor: "pointer", textDecoration: "underline" },
               color: "blue",

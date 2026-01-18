@@ -40,7 +40,19 @@ const CreateAccount = ({
     console.log(email);
     console.log(username);
     console.log(password);
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setEmail("");
+    setUsername("");
+    setPassword("");
     onClose();
+  };
+
+  const switchDialog = () => {
+    handleClose();
+    onSwitchToLogin();
   };
 
   return (
@@ -50,7 +62,7 @@ const CreateAccount = ({
           transition: Transition,
         }}
         open={open}
-        onClose={onClose}
+        onClose={handleClose}
       >
         <DialogTitle sx={{ textAlign: "center" }} className="">
           Create account
@@ -81,14 +93,14 @@ const CreateAccount = ({
               <Button type="submit" variant="contained">
                 Join
               </Button>
-              <Button variant="contained" onClick={onClose}>
+              <Button variant="contained" onClick={handleClose}>
                 Cancel
               </Button>
             </DialogActions>
           </form>
           <Typography sx={{ textAlign: "center", fontStyle: "italic" }}>Already have an account?</Typography>
           <Typography
-            onClick={onSwitchToLogin}
+            onClick={switchDialog}
             sx={{
               "&:hover": { cursor: "pointer", textDecoration: "underline" },
               color: "blue",
