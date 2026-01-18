@@ -1,19 +1,25 @@
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 import { Link } from "react-router";
 import logo from "/kombio-logo.png";
 import styles from "../../css/Header.module.css";
-import Grid from "@mui/material/Grid";
+import { Button, Container, Box, Grid, Toolbar } from "@mui/material";
+import Login from "./Login";
+import CreateAccount from "./CreateAccount";
+import { useState } from "react";
 
 export default function Header() {
+  const [activeDialog, setActiveDialog] = useState("");
+
   const clearSessionStorage = () => {
     sessionStorage.clear();
   };
 
+  const closeDialog = () => {
+    setActiveDialog("");
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Container sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
           <Grid
@@ -52,13 +58,16 @@ export default function Header() {
             </Box>
 
             <Grid>
-              <Button className={styles.links} variant="contained">
+              <Button className={styles.links} variant="contained" onClick={() => setActiveDialog("login")}>
                 Login
               </Button>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
-    </Box>
+
+      <Login open={activeDialog === "login"} onClose={closeDialog} onSwitchToCreate={()=>setActiveDialog("createAccount")}></Login>
+      <CreateAccount open={activeDialog === "createAccount"} onClose={closeDialog} onSwitchToLogin={()=>setActiveDialog("login")}></CreateAccount>
+    </Container>
   );
 }
