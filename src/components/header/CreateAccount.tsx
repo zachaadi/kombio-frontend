@@ -58,9 +58,24 @@ const CreateAccount = ({
         <DialogContent>
           <form onSubmit={handleCreateAccount}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <TextField required placeholder="Email" onChange={(e) => setEmail(e.target.value)}></TextField>
-              <TextField required placeholder="Username" onChange={(e) => setUsername(e.target.value)}></TextField>
-              <TextField required placeholder="Password" onChange={(e) => setPassword(e.target.value)}></TextField>
+              <TextField
+                required
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              ></TextField>
+              <TextField
+                required
+                placeholder="Username"
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+              ></TextField>
+              <TextField
+                required
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              ></TextField>
             </Box>
             <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
               <Button type="submit" variant="contained">
