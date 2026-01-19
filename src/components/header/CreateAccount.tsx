@@ -37,10 +37,27 @@ const CreateAccount = ({
 
   const handleCreateAccount = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email);
-    console.log(username);
-    console.log(password);
+    createAccount();
     handleClose();
+  };
+
+  const createAccount = async () => {
+    const url = "http://localhost:3000/users";
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        email: email,
+        username: username,
+        password: password,
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
   };
 
   const handleClose = () => {
