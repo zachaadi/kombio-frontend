@@ -76,6 +76,7 @@ const Login = ({
               <TextField
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                type="password"
                 placeholder="Password"
                 value={password}
               ></TextField>

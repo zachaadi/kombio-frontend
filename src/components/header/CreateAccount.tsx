@@ -101,6 +101,7 @@ const CreateAccount = ({
               ></TextField>
               <TextField
                 required
+                type="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
