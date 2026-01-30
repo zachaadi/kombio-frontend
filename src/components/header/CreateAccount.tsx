@@ -31,6 +31,8 @@ const CreateAccount = ({
   onClose: () => void;
   onSwitchToLogin: () => void;
 }) => {
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -38,11 +40,12 @@ const CreateAccount = ({
   const handleCreateAccount = (e: React.FormEvent) => {
     e.preventDefault();
     createAccount();
-    handleClose();
   };
 
   const createAccount = async () => {
-    const url = "http://localhost:3000/users";
+    setUsernameError("");
+    setEmailError("");
+    const url = "http://localhost:3000/users/create";
     const headers = {
       "Content-Type": "application/json",
     };
@@ -57,7 +60,18 @@ const CreateAccount = ({
       }),
     });
     const result = await response.json();
-    console.log(result);
+
+    if (response.ok) {
+      console.log(result);
+      handleClose();
+    } else {
+      if (result.error === "Email already exists") {
+        setEmailError(result.error);
+      }
+      if (result.error === "Username already exists") {
+        setUsernameError(result.error);
+      }
+    }
   };
 
   const handleClose = () => {
@@ -92,12 +106,16 @@ const CreateAccount = ({
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
+                error={emailError != "" ? true : false}
+                helperText={emailError}
               ></TextField>
               <TextField
                 required
                 placeholder="Username"
                 onChange={(e) => setUsername(e.target.value)}
                 value={username}
+                error={usernameError != "" ? true : false}
+                helperText={usernameError}
               ></TextField>
               <TextField
                 required
