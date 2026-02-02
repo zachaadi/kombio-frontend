@@ -19,6 +19,11 @@ const JoinRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) => 
 
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (roomId.trim().length == 0 || playerName.trim().length == 0) {
+      return;
+    }
+
     setRoomId(roomId.trim().toUpperCase());
     setPlayerName(playerName.trim());
     socket.emit("joinRoom", roomId.trim().toUpperCase(), playerName.trim());

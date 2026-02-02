@@ -8,7 +8,7 @@ const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>
+  ref: React.Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -19,6 +19,11 @@ const CreateRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) =
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (roomId.trim().length == 0 || playerName.trim().length == 0) {
+      return;
+    }
+
     setRoomId(roomId.trim().toUpperCase());
     setPlayerName(playerName.trim());
     socket.emit("createRoom", roomId.trim().toUpperCase(), playerName.trim());
