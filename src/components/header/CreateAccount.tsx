@@ -37,12 +37,13 @@ const CreateAccount = ({
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleCreateAccount = (e: React.FormEvent) => {
+  const handleCreateAccount = async (e: React.FormEvent) => {
     e.preventDefault();
-    createAccount();
-  };
 
-  const createAccount = async () => {
+    if (email.trim().length == 0 || username.trim().length == 0 || password.trim().length == 0) {
+      return;
+    }
+
     setUsernameError("");
     setEmailError("");
     const url = "http://localhost:3000/users/create";
