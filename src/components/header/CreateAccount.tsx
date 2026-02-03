@@ -55,7 +55,7 @@ const CreateAccount = ({
 
     setUsernameError("");
     setEmailError("");
-    const url = "http://localhost:3000/users/create";
+
     const headers = {
       "Content-Type": "application/json",
     };
