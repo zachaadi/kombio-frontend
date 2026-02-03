@@ -31,16 +31,24 @@ const CreateAccount = ({
   onClose: () => void;
   onSwitchToLogin: () => void;
 }) => {
-  const [usernameError, setUsernameError] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [username, setUsername] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleCreateAccount = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (email.trim().length == 0 || username.trim().length == 0 || password.trim().length == 0) {
+    if (
+      email.trim().length == 0 ||
+      username.trim().length == 0 ||
+      password.trim().length == 0 ||
+      emailError != "" ||
+      usernameError != "" ||
+      passwordError != ""
+    ) {
       return;
     }
 
@@ -77,8 +85,11 @@ const CreateAccount = ({
 
   const handleClose = () => {
     setEmail("");
+    setEmailError("");
     setUsername("");
+    setUsernameError("");
     setPassword("");
+    setPasswordError("");
     onClose();
   };
 
@@ -113,7 +124,10 @@ const CreateAccount = ({
               <TextField
                 required
                 placeholder="Username"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setUsernameError(e.target.value.length < 3 ? "Username must be at least 3 characters" : "");
+                }}
                 value={username}
                 error={usernameError != "" ? true : false}
                 helperText={usernameError}
@@ -122,8 +136,13 @@ const CreateAccount = ({
                 required
                 type="password"
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setPasswordError(e.target.value.length < 8 ? "Password must be at least 8 characters" : "");
+                }}
                 value={password}
+                error={passwordError != "" ? true : false}
+                helperText={passwordError}
               ></TextField>
             </Box>
             <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
