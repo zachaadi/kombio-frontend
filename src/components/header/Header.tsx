@@ -38,7 +38,7 @@ export default function Header() {
               }}
             >
               <Grid sx={{ paddingRight: "1em" }}>
-                <Link to="/" onClick={clearSessionStorage}>
+                <Link to="/" onClick={() => sessionStorage.clear()}>
                   <img src={logo} alt="Logo" className={styles.logo} />
                 </Link>
               </Grid>
