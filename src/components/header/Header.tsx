@@ -2,16 +2,18 @@ import AppBar from "@mui/material/AppBar";
 import { Link } from "react-router";
 import logo from "/kombio-logo.png";
 import styles from "../../css/Header.module.css";
-import { Button, Container, Box, Grid, Toolbar } from "@mui/material";
+import { Button, Container, Box, Grid, Toolbar, Menu, MenuItem } from "@mui/material";
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
 import { useState } from "react";
 
 export default function Header() {
   const [activeDialog, setActiveDialog] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const clearSessionStorage = () => {
-    sessionStorage.clear();
+  const handleProfileClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const closeDialog = () => {
@@ -58,9 +60,21 @@ export default function Header() {
             </Box>
 
             <Grid>
-              <Button className={styles.links} variant="contained" onClick={() => setActiveDialog("login")}>
-                Login
-              </Button>
+              {loginSuccess ? (
+                <Box>
+                  <Button variant="contained" onClick={handleProfileClick}>
+                    Profile
+                  </Button>
+                  <Menu id="basic-menu" open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)} anchorEl={anchorEl}>
+                    <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </Box>
+              ) : (
+                <Button className={styles.links} variant="contained" onClick={() => setActiveDialog("login")}>
+                  Login
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Toolbar>

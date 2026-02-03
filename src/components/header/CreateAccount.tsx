@@ -27,10 +27,12 @@ const CreateAccount = ({
   open,
   onClose,
   onSwitchToLogin,
+  onLoginSuccess,
 }: {
   open: boolean;
   onClose: () => void;
   onSwitchToLogin: () => void;
+  onLoginSuccess: () => void;
 }) => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -74,8 +76,9 @@ const CreateAccount = ({
     const result = await response.json();
 
     if (response.ok) {
-      console.log(result);
+      localStorage.setItem("token", result);
       handleClose();
+      onLoginSuccess();
     } else {
       if (result.error === "Email already exists") {
         setEmailError(result.error);
