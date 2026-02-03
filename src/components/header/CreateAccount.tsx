@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
+import { URL } from "../../app/socket";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -58,6 +59,8 @@ const CreateAccount = ({
     const headers = {
       "Content-Type": "application/json",
     };
+
+    const url = `${URL}/users/create`;
 
     const response = await fetch(url, {
       method: "POST",
