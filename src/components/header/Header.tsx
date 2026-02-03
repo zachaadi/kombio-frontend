@@ -5,19 +5,28 @@ import styles from "../../css/Header.module.css";
 import { Button, Container, Box, Grid, Toolbar, Menu, MenuItem } from "@mui/material";
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const [activeDialog, setActiveDialog] = useState("");
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setLoginSuccess(true);
+    }
+  }, []);
+
   const handleProfileClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const closeDialog = () => {
-    setActiveDialog("");
+  const handleLogout = () => {
+    setAnchorEl(null);
+    setLoginSuccess(false);
+    localStorage.removeItem("token");
   };
 
   return (
@@ -80,8 +89,17 @@ export default function Header() {
         </Toolbar>
       </AppBar>
 
-      <Login open={activeDialog === "login"} onClose={closeDialog} onSwitchToCreate={()=>setActiveDialog("createAccount")}></Login>
-      <CreateAccount open={activeDialog === "createAccount"} onClose={closeDialog} onSwitchToLogin={()=>setActiveDialog("login")}></CreateAccount>
+      <Login
+        open={activeDialog === "login"}
+        onClose={() => setActiveDialog("")}
+        onSwitchToCreate={() => setActiveDialog("createAccount")}
+      ></Login>
+      <CreateAccount
+        open={activeDialog === "createAccount"}
+        onClose={() => setActiveDialog("")}
+        onSwitchToLogin={() => setActiveDialog("login")}
+        onLoginSuccess={() => setLoginSuccess(true)}
+      ></CreateAccount>
     </Container>
   );
 }
