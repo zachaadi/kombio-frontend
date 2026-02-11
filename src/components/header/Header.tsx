@@ -93,6 +93,7 @@ export default function Header() {
         open={activeDialog === "login"}
         onClose={() => setActiveDialog("")}
         onSwitchToCreate={() => setActiveDialog("createAccount")}
+        onLoginSuccess={() => setLoginSuccess(true)}
       ></Login>
       <CreateAccount
         open={activeDialog === "createAccount"}

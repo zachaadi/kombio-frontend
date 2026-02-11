@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
+import { URL } from "../../app/socket";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -26,24 +27,46 @@ const Login = ({
   open,
   onClose,
   onSwitchToCreate,
+  onLoginSuccess,
 }: {
   open: boolean;
   onClose: () => void;
   onSwitchToCreate: () => void;
+  onLoginSuccess: () => void;
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(username);
-    console.log(password);
-    handleClose();
+
+    const url = `${URL}/users/login`;
+
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ username: username, password: password }),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      localStorage.setItem("token", result);
+      onLoginSuccess();
+      handleClose();
+    } else if (result.error === "Username or Password was incorrect") {
+      setLoginError(result.error);
+    }
   };
 
   const handleClose = () => {
     setUsername("");
     setPassword("");
+    setLoginError("");
     onClose();
   };
 
@@ -80,6 +103,7 @@ const Login = ({
                 placeholder="Password"
                 value={password}
               ></TextField>
+              {loginError != "" ? <Box sx={{ color: "red" }}>{loginError}</Box> : ""}
             </Box>
             <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
               <Button type="submit" variant="contained">
