@@ -76,7 +76,8 @@ const CreateAccount = ({
     const result = await response.json();
 
     if (response.ok) {
-      localStorage.setItem("token", result);
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("username", result.username);
       handleClose();
       onLoginSuccess();
     } else {

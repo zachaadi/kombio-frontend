@@ -72,7 +72,7 @@ export default function Header() {
               {loginSuccess ? (
                 <Box>
                   <Button variant="contained" onClick={handleProfileClick}>
-                    Profile
+                    {localStorage.getItem("username")}
                   </Button>
                   <Menu id="basic-menu" open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)} anchorEl={anchorEl}>
                     <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
