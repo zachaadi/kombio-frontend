@@ -8,21 +8,27 @@ const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>
+  ref: React.Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const JoinRoom = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [roomId, setRoomId] = useState("");
   const [playerName, setPlayerName] = useState("");
 
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
-    setRoomId(roomId.trim());
+
+    if (roomId.trim().length == 0 || playerName.trim().length == 0) {
+      return;
+    }
+
+    setRoomId(roomId.trim().toUpperCase());
     setPlayerName(playerName.trim());
-    socket.emit("joinRoom", roomId.trim(), playerName.trim());
+    socket.emit("joinRoom", roomId.trim().toUpperCase(), playerName.trim());
     sessionStorage.setItem("playerName", playerName.trim());
-    sessionStorage.setItem("roomId", roomId.trim());
+    sessionStorage.setItem("roomId", roomId.trim().toUpperCase());
     handleClose();
   };
 
