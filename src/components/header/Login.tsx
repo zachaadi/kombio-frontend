@@ -51,12 +51,12 @@ const Login = ({
       method: "POST",
       headers: headers,
       body: JSON.stringify({ username: username, password: password }),
+      credentials: "include",
     });
 
     const result = await response.json();
     if (response.ok) {
-      localStorage.setItem("token", result.token);
-      localStorage.setItem("username", result.username);
+      sessionStorage.setItem("kombioUsername", result.username);
       onLoginSuccess();
       handleClose();
     } else if (result.error === "Username or Password was incorrect") {

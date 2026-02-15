@@ -13,8 +13,7 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    if (sessionStorage.getItem("kombioUsername")) {
       setLoginSuccess(true);
     }
   }, []);
@@ -26,7 +25,7 @@ export default function Header() {
   const handleLogout = () => {
     setAnchorEl(null);
     setLoginSuccess(false);
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("kombioUsername");
   };
 
   return (
@@ -72,7 +71,7 @@ export default function Header() {
               {loginSuccess ? (
                 <Box>
                   <Button variant="contained" onClick={handleProfileClick}>
-                    {localStorage.getItem("username")}
+                    {sessionStorage.getItem("kombioUsername")}
                   </Button>
                   <Menu id="basic-menu" open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)} anchorEl={anchorEl}>
                     <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
