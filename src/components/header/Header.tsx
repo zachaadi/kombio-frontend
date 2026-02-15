@@ -6,6 +6,7 @@ import { Button, Container, Box, Grid, Toolbar, Menu, MenuItem } from "@mui/mate
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
 import { useState, useEffect } from "react";
+import { URL } from "../../app/socket";
 
 export default function Header() {
   const [activeDialog, setActiveDialog] = useState("");
@@ -22,10 +23,24 @@ export default function Header() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setAnchorEl(null);
     setLoginSuccess(false);
     sessionStorage.removeItem("kombioUsername");
+    const url = `${URL}/users/logout`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        credentials: "include",
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.error("Logout failed");
+    }
   };
 
   return (
