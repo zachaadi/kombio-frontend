@@ -124,7 +124,10 @@ const CreateAccount = ({
               <TextField
                 required
                 placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setEmailError("");
+                }}
                 value={email}
                 error={emailError != "" ? true : false}
                 helperText={emailError}
