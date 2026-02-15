@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import { URL } from "../../app/socket";
+import { URL, socket } from "../../app/socket";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -78,8 +78,9 @@ const CreateAccount = ({
 
     if (response.ok) {
       sessionStorage.setItem("kombioUsername", result.username);
-      handleClose();
       onLoginSuccess();
+      handleClose();
+      socket.emit("sendSnackbar", "info", `Welcome ${result.username}!`);
     } else {
       if (result.error === "Email already exists") {
         setEmailError(result.error);

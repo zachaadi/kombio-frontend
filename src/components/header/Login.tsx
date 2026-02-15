@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import { URL } from "../../app/socket";
+import { URL, socket } from "../../app/socket";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -59,6 +59,7 @@ const Login = ({
       sessionStorage.setItem("kombioUsername", result.username);
       onLoginSuccess();
       handleClose();
+      socket.emit("sendSnackbar", "info", `Welcome ${result.username}!`);
     } else if (result.error === "Username or Password was incorrect") {
       setLoginError(result.error);
     }

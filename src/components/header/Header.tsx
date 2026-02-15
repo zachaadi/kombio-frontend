@@ -6,7 +6,7 @@ import { Button, Container, Box, Grid, Toolbar, Menu, MenuItem } from "@mui/mate
 import Login from "./Login";
 import CreateAccount from "./CreateAccount";
 import { useState, useEffect } from "react";
-import { URL } from "../../app/socket";
+import { URL, socket } from "../../app/socket";
 
 export default function Header() {
   const [activeDialog, setActiveDialog] = useState("");
@@ -35,7 +35,9 @@ export default function Header() {
         credentials: "include",
       });
       const result = await response.json();
-      if (!response.ok) {
+      if (response.ok) {
+        socket.emit("sendSnackbar", "info", "Successfully logged out");
+      } else {
         console.error(result.error);
       }
     } catch (error) {
