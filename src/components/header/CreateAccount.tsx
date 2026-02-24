@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Slide,
   Box,
@@ -11,8 +11,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { TransitionProps } from "@mui/material/transitions";
 import { URL, socket } from "../../app/socket";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,6 +24,18 @@ const Transition = React.forwardRef(function Transition(
   ref: React.Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const formSchema = z.object({
+  email: z.email("Invalid email address"),
+  username: z
+    .string()
+    .min(3, "Username must be between 3 and 12 characters")
+    .max(12, "Username must be between 3 and 12 characters"),
+  password: z
+    .string()
+    .min(8, "Password must be between 8 and 20 characters")
+    .max(20, "Password must be between 8 and 20 characters"),
 });
 
 const CreateAccount = ({
@@ -34,30 +49,7 @@ const CreateAccount = ({
   onSwitchToLogin: () => void;
   onLoginSuccess: () => void;
 }) => {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [username, setUsername] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
-  const handleCreateAccount = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (
-      email.trim().length == 0 ||
-      username.trim().length == 0 ||
-      password.trim().length == 0 ||
-      emailError != "" ||
-      usernameError != "" ||
-      passwordError != ""
-    ) {
-      return;
-    }
-
-    setUsernameError("");
-    setEmailError("");
-
+  const handleCreateAccount = async (data: any) => {
     const headers = {
       "Content-Type": "application/json",
     };
@@ -68,9 +60,9 @@ const CreateAccount = ({
       method: "POST",
       headers: headers,
       body: JSON.stringify({
-        email: email,
-        username: username,
-        password: password,
+        email: data.email,
+        username: data.username,
+        password: data.password,
       }),
       credentials: "include",
     });
@@ -83,21 +75,16 @@ const CreateAccount = ({
       socket.emit("sendSnackbar", "info", `Welcome ${result.username}!`);
     } else {
       if (result.error === "Email already exists") {
-        setEmailError(result.error);
+        setError("email", { type: "server", message: result.error });
       }
       if (result.error === "Username already exists") {
-        setUsernameError(result.error);
+        setError("username", { type: "server", message: result.error });
       }
     }
   };
 
   const handleClose = () => {
-    setEmail("");
-    setEmailError("");
-    setUsername("");
-    setUsernameError("");
-    setPassword("");
-    setPasswordError("");
+    reset();
     onClose();
   };
 
@@ -105,6 +92,21 @@ const CreateAccount = ({
     handleClose();
     onSwitchToLogin();
   };
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setError,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      username: "",
+      password: "",
+    },
+    resolver: zodResolver(formSchema),
+  });
 
   return (
     <Container>
@@ -115,46 +117,52 @@ const CreateAccount = ({
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle sx={{ textAlign: "center" }} className="">
+        <DialogTitle sx={{ textAlign: "center", pb: ".5em" }} className="">
           Create account
         </DialogTitle>
         <DialogContent>
-          <form onSubmit={handleCreateAccount}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              <TextField
-                required
-                placeholder="Email"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setEmailError("");
-                }}
-                value={email}
-                error={emailError != "" ? true : false}
-                helperText={emailError}
-              ></TextField>
-              <TextField
-                required
-                placeholder="Username"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                  setUsernameError(e.target.value.length < 3 ? "Username must be at least 3 characters" : "");
-                }}
-                value={username}
-                error={usernameError != "" ? true : false}
-                helperText={usernameError}
-              ></TextField>
-              <TextField
-                required
-                type="password"
-                placeholder="Password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setPasswordError(e.target.value.length < 8 ? "Password must be at least 8 characters" : "");
-                }}
-                value={password}
-                error={passwordError != "" ? true : false}
-                helperText={passwordError}
-              ></TextField>
+          <form onSubmit={handleSubmit(handleCreateAccount)}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, pt: ".5em" }}>
+              <Controller
+                control={control}
+                name={"email"}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    required
+                    label="email"
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                )}
+              ></Controller>
+              <Controller
+                control={control}
+                name={"username"}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    required
+                    label="username"
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+                  />
+                )}
+              ></Controller>
+              <Controller
+                control={control}
+                name={"password"}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    required
+                    label="password"
+                    type="password"
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+                )}
+              ></Controller>
             </Box>
             <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
               <Button type="submit" variant="contained">
