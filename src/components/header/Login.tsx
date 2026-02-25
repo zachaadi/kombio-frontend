@@ -27,8 +27,8 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const formSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  username: z.string().trim().min(1, "Username is required"),
+  password: z.string().trim().min(1, "Password is required"),
 });
 
 const Login = ({
@@ -43,7 +43,6 @@ const Login = ({
   onLoginSuccess: () => void;
 }) => {
   const handleLogin = async (data: any) => {
-
     const url = `${URL}/users/login`;
 
     const headers = {

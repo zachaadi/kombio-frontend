@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useForm, Controller} from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { TransitionProps } from "@mui/material/transitions";
 import { URL, socket } from "../../app/socket";
 import { z } from "zod";
@@ -30,12 +30,16 @@ const formSchema = z.object({
   email: z.email("Invalid email address"),
   username: z
     .string()
+    .trim()
     .min(3, "Username must be between 3 and 12 characters")
-    .max(12, "Username must be between 3 and 12 characters"),
+    .max(12, "Username must be between 3 and 12 characters")
+    .regex(/^\S*$/, "No spaces allowed"),
   password: z
     .string()
+    .trim()
     .min(8, "Password must be between 8 and 20 characters")
-    .max(20, "Password must be between 8 and 20 characters"),
+    .max(20, "Password must be between 8 and 20 characters")
+    .regex(/^\S*$/, "No spaces allowed"),
 });
 
 const CreateAccount = ({
@@ -127,12 +131,7 @@ const CreateAccount = ({
                 control={control}
                 name={"email"}
                 render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label="email"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                  />
+                  <TextField {...field} label="email" error={!!errors.email} helperText={errors.email?.message} />
                 )}
               ></Controller>
               <Controller
