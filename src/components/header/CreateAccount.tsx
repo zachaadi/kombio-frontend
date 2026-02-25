@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller} from "react-hook-form";
 import { TransitionProps } from "@mui/material/transitions";
 import { URL, socket } from "../../app/socket";
 import { z } from "zod";
@@ -129,7 +129,6 @@ const CreateAccount = ({
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    required
                     label="email"
                     error={!!errors.email}
                     helperText={errors.email?.message}
@@ -142,7 +141,6 @@ const CreateAccount = ({
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    required
                     label="username"
                     error={!!errors.username}
                     helperText={errors.username?.message}
@@ -155,7 +153,6 @@ const CreateAccount = ({
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    required
                     label="password"
                     type="password"
                     error={!!errors.password}
