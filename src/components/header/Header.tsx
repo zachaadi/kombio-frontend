@@ -27,7 +27,7 @@ export default function Header() {
     setAnchorEl(null);
     setLoginSuccess(false);
     sessionStorage.removeItem("kombioUsername");
-    const url = `${URL}/users/logout`;
+    const url = '/api/users/logout';
 
     try {
       const response = await fetch(url, {

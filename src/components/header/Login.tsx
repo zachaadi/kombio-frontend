@@ -43,7 +43,7 @@ const Login = ({
   onLoginSuccess: () => void;
 }) => {
   const handleLogin = async (data: any) => {
-    const url = `${URL}/users/login`;
+    const url = '/api/users/login';
 
     const headers = {
       "Content-Type": "application/json",

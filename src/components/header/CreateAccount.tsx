@@ -58,7 +58,7 @@ const CreateAccount = ({
       "Content-Type": "application/json",
     };
 
-    const url = `${URL}/users/create`;
+    const url = '/api/users/create';
 
     const response = await fetch(url, {
       method: "POST",
