@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import { URL, socket } from "../../app/socket";
+import { socket } from "../../app/socket";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
